@@ -9,9 +9,7 @@ export default function Intro() {
     const timer = setTimeout(() => {
       navigate("main");
     }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
