@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import PhotoCard from './pages/PhotoCard';
 import MyRoom from './pages/MyRoom';
 import PlayList from './pages/PlayList';
+import ProfileDetail from './pages/ProfileDetail';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { path: 'photocard', element: <PhotoCard /> },
       { path: 'myroom', element: <MyRoom /> },
-      { path: 'playlist', element: <PlayList /> }
+      { path: 'playlist', element: <PlayList /> },
+      { path: 'profile/:profileId', element: <ProfileDetail /> }
     ]
   }
 ])
