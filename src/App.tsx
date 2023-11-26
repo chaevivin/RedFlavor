@@ -26,7 +26,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <section className='appBackground'>
+      <RouterProvider router={router} />
+    </section>
+  );
 }
 
 export default App;

@@ -1,0 +1,8 @@
+.statusbar {
+  width: 130px;
+  height: 30px;
+  background-color: gray;
+  position: absolute;
+  top: 10%;
+  right: 15%;
+}
