@@ -1,11 +1,10 @@
 import React from 'react';
 import styles from './MyRoomModal.module.css';
-import { closeModal, modalState, modalValue } from './../../reducers/modalSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { closeModal } from './../../reducers/modalSlice';
+import { useAppDispatch } from '../../hook/reduxHook';
 
 export default function MyRoomModal() {
-  const modalState = useSelector(modalValue);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleXClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
