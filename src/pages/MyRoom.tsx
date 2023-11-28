@@ -5,7 +5,7 @@ import SpeechBubble from '../components/SpeechBubble/SpeechBubble';
 import StatusBar from '../components/StatusBar/StatusBar';
 import HeartBar from '../components/HeartBar/HeartBar';
 import MyRoomModal from '../components/MyRoomModal/MyRoomModal';
-import { IoMdMenu } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 
 export default function MyRoom() {
   const [menuClicked, setMenuClicked] = useState<boolean>(false);
@@ -26,7 +26,7 @@ export default function MyRoom() {
         onClick={(e) => handleMenuClick(e)}
         className={styles.button}
       >
-        <IoMdMenu />
+        <IoMenu />
       </button>
       {menuClicked ? <MyRoomModal /> : ''}
     </div>
