@@ -6,14 +6,16 @@ import StatusBar from '../components/StatusBar/StatusBar';
 import HeartBar from '../components/HeartBar/HeartBar';
 import MyRoomModal from '../components/MyRoomModal/MyRoomModal';
 import { IoMdMenu } from "react-icons/io";
+import { useDispatch, useSelector } from 'react-redux';
+import { modalValue, openModal } from '../reducers/modalSlice';
 
 export default function MyRoom() {
-  const [menuClicked, setMenuClicked] = useState<boolean>(false);
+  const modalState = useSelector(modalValue);
+  const dispatch = useDispatch();
   
   const handleMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setMenuClicked((prev) => !prev);
-    console.log(menuClicked);
+    dispatch(openModal());
   };
 
   return (
@@ -28,7 +30,7 @@ export default function MyRoom() {
       >
         <IoMdMenu />
       </button>
-      {menuClicked ? <MyRoomModal /> : ''}
+      {modalState ? <MyRoomModal /> : ''}
     </div>
   );
 }
