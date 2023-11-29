@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from '../reducers/modalSlice';
 import heartReducer from '../reducers/heartSlice';
+import memberReducer from '../reducers/memberSlice';
 
 export const store = configureStore({
   reducer: {
     modal: modalReducer,
-    heart: heartReducer
+    heart: heartReducer,
+    member: memberReducer
   }
 });
 
