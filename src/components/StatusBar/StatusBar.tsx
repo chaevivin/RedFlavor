@@ -20,6 +20,7 @@ export default function StatusBar() {
         value={status}
         onFocus={() => handleStatusFocus()}
         onChange={(e) => handleStatusChange(e)}
+        maxLength={9}
       />
     </form>
     
