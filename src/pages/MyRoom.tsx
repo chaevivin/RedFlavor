@@ -8,10 +8,13 @@ import MyRoomModal from '../components/MyRoomModal/MyRoomModal';
 import { IoMenu } from "react-icons/io5";
 import { modalValue, openModal } from '../reducers/modalSlice';
 import { useAppDispatch, useAppSelector } from '../hook/reduxHook';
+import Back from '../components/Back/Back';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyRoom() {
   const modalState = useAppSelector(modalValue);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   
   const handleMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ export default function MyRoom() {
 
   return (
     <div className={styles.background}>
+      <Back navigate={navigate} />
       <Character />
       <SpeechBubble />
       <HeartBar />

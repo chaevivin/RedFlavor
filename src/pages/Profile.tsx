@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Back from '../components/Back/Back';
 
 const name: string[] = ['irene', 'seulgi', 'wendy', 'joy', 'yeri'];
 
@@ -13,6 +14,7 @@ export default function Profile() {
 
   return (
     <div>
+      <Back navigate={navigate}/>
       <h1>Profile</h1>
       <button onClick={(e) => handleClick(e, name[0])}>아이린</button>
       <button onClick={(e) => handleClick(e, name[1])}>슬기</button>
