@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/Back/Back';
+import TrackList from '../components/TrackList/TrackList';
 
 export default function PlayList() {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export default function PlayList() {
   return (
     <div>
       <Back navigate={navigate} />
-      <h1>PlayList</h1>
+      <TrackList />
     </div>
   );
 }
