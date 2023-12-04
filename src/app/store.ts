@@ -3,13 +3,15 @@ import modalReducer from '../reducers/modalSlice';
 import heartReducer from '../reducers/heartSlice';
 import memberReducer from '../reducers/memberSlice';
 import nowPlayingReducer from '../reducers/nowPlayingSlice';
+import likeReducer from '../reducers/likeSlice';
 
 export const store = configureStore({
   reducer: {
     modal: modalReducer,
     heart: heartReducer,
     member: memberReducer,
-    nowPlaying: nowPlayingReducer
+    nowPlaying: nowPlayingReducer,
+    like: likeReducer
   }
 });
 

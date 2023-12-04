@@ -1,4 +1,4 @@
-import { collection, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { database } from '../../api/firebase';
 import { useAppSelector } from '../../hook/reduxHook';
