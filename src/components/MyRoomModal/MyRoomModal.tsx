@@ -4,6 +4,7 @@ import { closeModal } from './../../reducers/modalSlice';
 import { useAppDispatch } from '../../hook/reduxHook';
 import { memberUpdated } from '../../reducers/memberSlice';
 
+const members = ['irene', 'seulgi', 'wendy', 'joy', 'yeri'];
 
 export default function MyRoomModal() {
   const dispatch = useAppDispatch();
@@ -13,10 +14,8 @@ export default function MyRoomModal() {
     dispatch(closeModal());
   };
 
-  const handleMemeberClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(e.currentTarget.value);
-    dispatch(memberUpdated(e.currentTarget.value));
+  const handleMemberClick = (value: string) => {
+    dispatch(memberUpdated(value));
   };
 
   return (
@@ -29,11 +28,14 @@ export default function MyRoomModal() {
         x
       </button>
       <div>
-        <button onClick={(e) => handleMemeberClick(e)} value='irene'>아이린</button>
-        <button onClick={(e) => handleMemeberClick(e)} value='seulgi'>슬기</button>
-        <button onClick={(e) => handleMemeberClick(e)} value='wendy'>웬디</button>
-        <button onClick={(e) => handleMemeberClick(e)} value='joy'>조이</button>
-        <button onClick={(e) => handleMemeberClick(e)} value='yeri'>예리</button>
+        {members.map((member) => (
+          <button
+            key={member}
+            onClick={() => handleMemberClick(member)}
+          >
+            {member}
+          </button>
+        ))}
       </div>
     </div>
   );
