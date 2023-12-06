@@ -4,6 +4,7 @@ import heartReducer from '../reducers/heartSlice';
 import memberReducer from '../reducers/memberSlice';
 import nowPlayingReducer from '../reducers/nowPlayingSlice';
 import likeReducer from '../reducers/likeSlice';
+import musicReducer from '../reducers/musicSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     heart: heartReducer,
     member: memberReducer,
     nowPlaying: nowPlayingReducer,
-    like: likeReducer
+    like: likeReducer,
+    music: musicReducer
   }
 });
 

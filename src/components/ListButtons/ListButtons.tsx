@@ -4,6 +4,7 @@ import { IoPause } from "react-icons/io5";
 import { IoMdPlay } from "react-icons/io";
 import { useAppDispatch } from '../../hook/reduxHook';
 import { nextClicked, prevClicked } from '../../reducers/nowPlayingSlice';
+import { pauseClicked, playClicked } from '../../reducers/musicSlice';
 
 export default function ListButtons() {
   const dispatch = useAppDispatch();
@@ -20,10 +21,12 @@ export default function ListButtons() {
 
   const handlePauseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    dispatch(pauseClicked());
   };
 
   const handlePlayClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    dispatch(playClicked());
   };
 
   return (
