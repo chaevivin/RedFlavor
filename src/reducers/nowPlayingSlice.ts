@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
-export interface nowState {
+export interface NowState {
   value: number;
 }
 
-const initialState: nowState = {
+const initialState: NowState = {
   value: 1
 };
 
@@ -14,10 +14,10 @@ export const nowPlayingSlice = createSlice({
   initialState,
   reducers: {
     prevClicked: (state) => {
-      state.value > 1 ? state.value -= 1 : state.value = 5;
+      state.value = (state.value > 1) ? state.value - 1 : 10;
     },
     nextClicked: (state) => {
-      state.value < 5 ? state.value += 1 : state.value = 1;
+      state.value = (state.value < 10) ? state.value + 1 : 1;
     }
   }
 });

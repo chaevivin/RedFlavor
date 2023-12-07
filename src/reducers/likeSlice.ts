@@ -1,28 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
-export interface likeState {
+export interface LikeState {
   num: number;
   liked: boolean;
 }
 
-const initialState: likeState[] = [
-  {num: 1, liked: false},
-  {num: 2, liked: false},
-  {num: 3, liked: false},
-  {num: 4, liked: false},
-  {num: 5, liked: false},
-];
+const initialState: LikeState[] = Array.from({ length: 10 }, (_, idx) => ({
+  num: idx + 1,
+  liked: false
+}));
 
 export const likeSlice = createSlice({
   name: 'like',
   initialState,
   reducers: {
-    likeClicked: (state, action) => {
+    likeClicked: (state, action: PayloadAction<number>) => {
       const now = action.payload;
-      state.forEach((s) => {
-        if (now === s.num) s.liked = !(s.liked);
-      });
+      const likeNum = state.find((s) => now === s.num);
+      if (likeNum) {
+        likeNum.liked = !likeNum.liked;
+      }
     }
   }
 });

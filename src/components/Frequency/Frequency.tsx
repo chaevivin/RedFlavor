@@ -12,7 +12,7 @@ export default function Frequency() {
     if (music) {
       const timer = setInterval(() => {
         setRandomInt(Math.floor(Math.random() * 7) + 1);
-      }, 2000);
+      }, 1000);
   
       return () => clearInterval(timer);
     }
