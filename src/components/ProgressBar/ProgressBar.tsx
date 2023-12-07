@@ -23,14 +23,19 @@ export default function ProgressBar() {
   
       return () => clearTimeout(timer);
     }
-  }, [currentTime, music, now]);
+  }, [currentTime, music]);
 
   useEffect(() => {
     if (music) {
       const calculatedProgress = (currentTime / 180) * 100;
       setProgress(calculatedProgress);
     }
-  }, [currentTime, music, now]);
+  }, [currentTime, music]);
+  
+  useEffect(() => {
+    setCurrentTime(0);
+    setProgress(0);
+  }, [now]);
 
   return (
     <div className={styles.container}>
