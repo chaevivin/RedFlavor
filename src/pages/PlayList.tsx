@@ -19,8 +19,9 @@ export default function PlayList() {
       <Back navigate={navigate} />
       <p>♬TRACK 0{nowPlaying}</p>
       <div className={styles.frequency}>
-        <Frequency /><Frequency /><Frequency /><Frequency /><Frequency />
-        <Frequency /><Frequency /><Frequency /><Frequency /><Frequency />
+      <Frequency start={0} /><Frequency start={1} /><Frequency start={2} />
+        <Frequency start={3} /><Frequency start={4} /><Frequency start={5} />
+        <Frequency start={6} /><Frequency start={7} /><Frequency start={8} /><Frequency start={9} />
       </div>
       <ProgressBar />
       <LikeMusic />
