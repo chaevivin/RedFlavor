@@ -5,6 +5,8 @@ import memberReducer from '../reducers/memberSlice';
 import nowPlayingReducer from '../reducers/nowPlayingSlice';
 import likeReducer from '../reducers/likeSlice';
 import musicReducer from '../reducers/musicSlice';
+import exampleReducer from '../reducers/exampleSlice';
+import panelReducer from '../reducers/panelSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +15,9 @@ export const store = configureStore({
     member: memberReducer,
     nowPlaying: nowPlayingReducer,
     like: likeReducer,
-    music: musicReducer
+    music: musicReducer,
+    example: exampleReducer,
+    panel: panelReducer
   }
 });
 
