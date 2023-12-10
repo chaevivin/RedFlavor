@@ -16,9 +16,13 @@ export default function PhotoCard() {
 
   return (
     <section>
-      <Back navigate={navigate} />
-      <h1>포토카드 꾸미기</h1>
-      <button>저장</button>
+      {openPanel || (
+        <>
+          <Back navigate={navigate} />
+          <h1>포토카드 꾸미기</h1>
+          <button>저장</button>
+        </>
+      )}
       {showExample && <PhotoCardExample />}
       <img 
         src="/img/joy.png" 

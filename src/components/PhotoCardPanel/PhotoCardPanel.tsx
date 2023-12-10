@@ -1,25 +1,33 @@
 import React from 'react';
-import { FaCheck } from "react-icons/fa6";
-import { useAppDispatch } from '../../hook/reduxHook';
-import { closePanel } from '../../reducers/panelSlice';
 import styles from './PhotoCardPanel.module.css';
+import PanelButtons from '../PanelButtons/PanelButtons';
+import { useAppSelector } from '../../hook/reduxHook';
+import { selectPanelValue } from '../../reducers/choosePanelSlice';
+import MemberPanel from '../MemberPanel/MemberPanel';
+import FramePanel from '../FramePanel/FramePanel';
+import StickerPanel from '../StickerPanel/StickerPanel';
+import BrushPanel from '../BrushPanel/BrushPanel';
 
 export default function PhotoCardPanel() {
-  const dispatch = useAppDispatch();
-
-  const handleCompleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    dispatch(closePanel());
-  };
+  const panel = useAppSelector(selectPanelValue);
 
   return (
     <section>
-      <h3>panel</h3>
-      <button
-        onClick={(e) => handleCompleteClick(e)}
-      >
-        <FaCheck className={styles.check} />
-      </button>
+      <PanelButtons />
+      {panel && (() => {
+        switch (panel) {
+          case 'member':
+            return <MemberPanel />;
+          case 'frame':
+            return <FramePanel />;
+          case 'sticker':
+            return <StickerPanel />;
+          case 'brush':
+            return <BrushPanel />;
+          default:
+            return 'Error';
+        }
+      })()}
     </section>
   );
 }

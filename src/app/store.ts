@@ -7,6 +7,7 @@ import likeReducer from '../reducers/likeSlice';
 import musicReducer from '../reducers/musicSlice';
 import exampleReducer from '../reducers/exampleSlice';
 import panelReducer from '../reducers/panelSlice';
+import choosePanelReducer from '../reducers/choosePanelSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
     like: likeReducer,
     music: musicReducer,
     example: exampleReducer,
-    panel: panelReducer
+    panel: panelReducer,
+    choosePanel: choosePanelReducer
   }
 });
 
