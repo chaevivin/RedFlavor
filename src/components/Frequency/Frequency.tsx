@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import styles from './Frequency.module.css';
 import { useAppSelector } from '../../hook/reduxHook';
 import { musicValue } from './../../reducers/musicSlice';
@@ -10,7 +10,10 @@ export default function Frequency({ start }: { start: number }) {
   const array = useRef<number[]>([]);
   const music = useAppSelector(musicValue);
 
-  useEffect(() => {
+  // useEffect -> useLayoutEffect 훅으로 변경
+  // 컴포넌트 첫 렌더링 이전에 콜백 함수를 실행하여
+  // PlayList 페이지에 들어가자마자 주파수가 바로 작동한다.
+  useLayoutEffect(() => {
     let currentIndex = start;
 
     if (music) {
@@ -23,7 +26,7 @@ export default function Frequency({ start }: { start: number }) {
     }
   }, [music, start]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (music) {
       // randomInt 길이의 배열 생성해서 array에 할당
       array.current = Array.from({ length: randomInt }); 
