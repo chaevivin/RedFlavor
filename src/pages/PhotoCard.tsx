@@ -8,11 +8,14 @@ import { selectExample } from '../reducers/exampleSlice';
 import PhotoCardExample from '../components/PhotoCardExample/PhotoCardExample';
 import { selectPanel } from '../reducers/panelSlice';
 import PhotoCardPanel from '../components/PhotoCardPanel/PhotoCardPanel';
+import PhotoCardImg from '../components/PhotoCardImg/PhotoCardImg';
+import { selectPanelValue } from '../reducers/choosePanelSlice';
 
 export default function PhotoCard() {
   const navigate = useNavigate();
   const showExample = useAppSelector(selectExample);
   const openPanel = useAppSelector(selectPanel);
+  const panel = useAppSelector(selectPanelValue);
 
   return (
     <section>
@@ -24,11 +27,13 @@ export default function PhotoCard() {
         </>
       )}
       {showExample && <PhotoCardExample />}
-      <img 
-        src="/img/joy.png" 
-        alt="joy" 
-        className={styles.img} 
-      />
+      {openPanel && panel === 'brush' ? <PhotoCardImg /> : (
+        <img 
+          src="/img/joy.png" 
+          alt="joy" 
+          className={styles.img} 
+        />
+      )}
       {openPanel || <PhotoCardFooter />}
       {openPanel && <PhotoCardPanel />}
     </section>

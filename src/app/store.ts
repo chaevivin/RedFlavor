@@ -8,6 +8,7 @@ import musicReducer from '../reducers/musicSlice';
 import exampleReducer from '../reducers/exampleSlice';
 import panelReducer from '../reducers/panelSlice';
 import choosePanelReducer from '../reducers/choosePanelSlice';
+import changeColorReducer from '../reducers/changeColorSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     music: musicReducer,
     example: exampleReducer,
     panel: panelReducer,
-    choosePanel: choosePanelReducer
+    choosePanel: choosePanelReducer,
+    changeColor: changeColorReducer
   }
 });
 
