@@ -1,32 +1,32 @@
 import React from 'react';
+import BrushType from '../BrushType/BrushType';
+import EraserType from '../EraserType/EraserType';
 import { useAppDispatch } from '../../hook/reduxHook';
-import { changeColor } from '../../reducers/changeColorSlice';
+import { brushType } from '../../reducers/brushTypeSlice';
 
 export default function BrushPanel() {
   const dispatch = useAppDispatch();
 
-  const handleColorClick = (e: React.MouseEvent<HTMLButtonElement>, color: string) => {
+  const handleBrushTypeClick = (e: React.MouseEvent<HTMLButtonElement>, type: string) => {
     e.preventDefault();
-    dispatch(changeColor(color));
+    dispatch(brushType(type));
   };
+  
 
   return (
-    <section>
+    <section> 
       <button
-        onClick={(e) => handleColorClick(e, 'green')}
+        onClick={(e) => handleBrushTypeClick(e, 'brush')}
       >
-        green
+        브러쉬
       </button>
       <button
-        onClick={(e) => handleColorClick(e, 'pink')}
+        onClick={(e) => handleBrushTypeClick(e, 'eraser')}
       >
-        pink
+        지우개
       </button>
-      <button
-        onClick={(e) => handleColorClick(e, 'orange')}
-      >
-        orange
-      </button>
+      <BrushType />
+      <EraserType />
     </section>
   );
 }
