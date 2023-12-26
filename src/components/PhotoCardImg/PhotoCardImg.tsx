@@ -4,18 +4,25 @@ import { selectColorValue } from '../../reducers/changeColorSlice';
 import { selectBrushTypeValue } from '../../reducers/brushTypeSlice';
 import { selectEraserValue } from '../../reducers/changeEraserSlice';
 import styles from './PhotoCardImg.module.css';
+import { selectisEditable } from '../../reducers/isEditableSlice';
 
 interface Coordinate {
   x: number;
   y: number;
 }
 
-export default function PhotoCardImg() {
+interface PhotoCardImgProps {
+  saveTargetRef: React.MutableRefObject<HTMLElement | null>;
+}
+
+export default function PhotoCardImg({ saveTargetRef }: PhotoCardImgProps) {
   const nowColor = useAppSelector(selectColorValue);
   const nowBrush = useAppSelector(selectBrushTypeValue);
   const nowSize = useAppSelector(selectEraserValue);
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isEditable = useAppSelector(selectisEditable);
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [position, setPosition] = useState<Coordinate | undefined>(undefined);
   const [isDrawing, setDrawing] = useState<boolean>(false);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
@@ -118,6 +125,9 @@ export default function PhotoCardImg() {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+
+    if (!isEditable) return;
+
     const canvas: HTMLCanvasElement = canvasRef.current;
     setCtx(canvas.getContext('2d'));
 
@@ -140,7 +150,7 @@ export default function PhotoCardImg() {
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', stopTouch);
     };
-  }, [draw, startDraw, startTouch, stopDraw, stopTouch, touch]);
+  }, [draw, isEditable, startDraw, startTouch, stopDraw, stopTouch, touch]);
 
   // 지우개
   useEffect(() => {
@@ -149,7 +159,7 @@ export default function PhotoCardImg() {
     if (nowBrush === 'eraser') ctx.globalCompositeOperation = "destination-out";
     if (nowBrush === 'brush') ctx.globalCompositeOperation = "lighter";
 
-  }, [nowBrush]);
+  }, [ctx, nowBrush]);
 
   // 브러쉬 사이즈 변경
   useEffect(() => {
@@ -172,9 +182,14 @@ export default function PhotoCardImg() {
   //   })
   // );
 
+  const setRefs = (el: HTMLCanvasElement) => {
+    saveTargetRef.current = el;
+    canvasRef.current = el;
+  };
+
   return (
     <section>
-      <canvas ref={canvasRef} width={500} height={500} className={styles.canvas} />
+      <canvas ref={setRefs} width={500} height={500} className={styles.canvas} />
     </section>
   );
 }

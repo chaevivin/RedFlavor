@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../hook/reduxHook';
 import { closePanel } from '../../reducers/panelSlice';
 import styles from './PanelButtons.module.css';
 import { choosePanel } from '../../reducers/choosePanelSlice';
+import { stopEdit } from '../../reducers/isEditableSlice';
 
 export default function PanelButtons() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ export default function PanelButtons() {
   const handleCompleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(closePanel());
+    dispatch(stopEdit());
   };
 
   return (

@@ -11,6 +11,7 @@ import choosePanelReducer from '../reducers/choosePanelSlice';
 import changeColorReducer from '../reducers/changeColorSlice';
 import changeEraserReducer from '../reducers/changeEraserSlice';
 import brushTypeReducer from '../reducers/brushTypeSlice';
+import isEditableReducer from '../reducers/isEditableSlice';
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +26,8 @@ export const store = configureStore({
     choosePanel: choosePanelReducer,
     changeColor: changeColorReducer,
     changeEraser: changeEraserReducer,
-    brushType: brushTypeReducer
+    brushType: brushTypeReducer,
+    isEditable: isEditableReducer,
   }
 });
 
