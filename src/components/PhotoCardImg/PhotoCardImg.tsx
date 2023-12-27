@@ -13,9 +13,10 @@ interface Coordinate {
 
 interface PhotoCardImgProps {
   saveTargetRef: React.MutableRefObject<HTMLElement | null>;
+  clearCanvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
 }
 
-export default function PhotoCardImg({ saveTargetRef }: PhotoCardImgProps) {
+export default function PhotoCardImg({ saveTargetRef, clearCanvasRef }: PhotoCardImgProps) {
   const nowColor = useAppSelector(selectColorValue);
   const nowBrush = useAppSelector(selectBrushTypeValue);
   const nowSize = useAppSelector(selectEraserValue);
@@ -40,13 +41,13 @@ export default function PhotoCardImg({ saveTargetRef }: PhotoCardImgProps) {
     if (!canvasRef.current) return;
 
     if (ctx) {
-      ctx.globalCompositeOperation = nowBrush === 'brush' ? 'lighter' : 'destination-out';
+      ctx.globalCompositeOperation = nowBrush === 'brush' ? 'screen' : 'destination-out';
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.lineWidth = nowSize;
-      ctx.strokeStyle = nowColor;
+      ctx.strokeStyle = 'white';
 
-      ctx.shadowBlur = 5;
+      ctx.shadowBlur = 6;
       ctx.shadowColor = nowColor;
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
@@ -130,6 +131,7 @@ export default function PhotoCardImg({ saveTargetRef }: PhotoCardImgProps) {
 
     const canvas: HTMLCanvasElement = canvasRef.current;
     setCtx(canvas.getContext('2d'));
+    clearCanvasRef.current = canvasRef.current;
 
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mousemove', draw);
@@ -150,7 +152,7 @@ export default function PhotoCardImg({ saveTargetRef }: PhotoCardImgProps) {
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', stopTouch);
     };
-  }, [draw, isEditable, startDraw, startTouch, stopDraw, stopTouch, touch]);
+  }, [clearCanvasRef, draw, isEditable, startDraw, startTouch, stopDraw, stopTouch, touch]);
 
   // 지우개
   useEffect(() => {

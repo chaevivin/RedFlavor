@@ -16,7 +16,7 @@ export default function PhotoCard() {
   const openPanel = useAppSelector(selectPanel);
 
   const saveTargetRef = useRef<HTMLElement | null>(null);
-  console.log(saveTargetRef.current);
+  const clearCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   return (
     <section>
@@ -27,9 +27,9 @@ export default function PhotoCard() {
           <PhotoCardSave saveTargetRef={saveTargetRef} />
         </>
       )}
-      <PhotoCardImg saveTargetRef={saveTargetRef} />
+      <PhotoCardImg saveTargetRef={saveTargetRef} clearCanvasRef={clearCanvasRef} />
       {showExample && <PhotoCardExample />}
-      {openPanel || <PhotoCardFooter />}
+      {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
       {openPanel && <PhotoCardPanel />}
     </section>
   );

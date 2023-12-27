@@ -3,7 +3,19 @@ import { useAppDispatch } from '../../hook/reduxHook';
 import { showExample } from '../../reducers/exampleSlice';
 import { openPanel } from '../../reducers/panelSlice';
 
-export default function PhotoCardFooter() {
+interface PhotoCardFooterProps {
+  clearCanvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+}
+
+const clearCanvas = (canvas: HTMLCanvasElement) => {
+  const context = canvas.getContext('2d');
+
+  if (context) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+};
+
+export default function PhotoCardFooter({ clearCanvasRef }: PhotoCardFooterProps) {
   const dispatch = useAppDispatch();
 
   const handlePanelClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,6 +30,12 @@ export default function PhotoCardFooter() {
 
   const handleResetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    const canvas = clearCanvasRef.current;
+
+    if (canvas) {
+      clearCanvas(canvas);
+    }
   };
 
   return (
