@@ -7,6 +7,7 @@ import MemberPanel from '../MemberPanel/MemberPanel';
 import FramePanel from '../FramePanel/FramePanel';
 import StickerPanel from '../StickerPanel/StickerPanel';
 import BrushPanel from '../BrushPanel/BrushPanel';
+import ErrorPage from '../../pages/ErrorPage';
 
 export default function PhotoCardPanel() {
   const panel = useAppSelector(selectPanelValue);
@@ -25,7 +26,7 @@ export default function PhotoCardPanel() {
           case 'brush':
             return <BrushPanel />;
           default:
-            return 'Error';
+            return <ErrorPage />;
         }
       })()}
     </section>

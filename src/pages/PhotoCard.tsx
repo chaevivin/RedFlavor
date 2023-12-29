@@ -27,7 +27,10 @@ export default function PhotoCard() {
           <PhotoCardSave saveTargetRef={saveTargetRef} />
         </>
       )}
-      <PhotoCardImg saveTargetRef={saveTargetRef} clearCanvasRef={clearCanvasRef} />
+      <PhotoCardImg 
+        saveTargetRef={saveTargetRef} 
+        clearCanvasRef={clearCanvasRef} 
+      />
       {showExample && <PhotoCardExample />}
       {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
       {openPanel && <PhotoCardPanel />}
