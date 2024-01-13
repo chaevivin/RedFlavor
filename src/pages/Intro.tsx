@@ -17,7 +17,7 @@ export default function Intro() {
         }
       }, 1000);
 
-    if (count === 4) {
+    if (count === 4) {       
       clearInterval(timer);
       navigate("main");
     }
