@@ -18,19 +18,31 @@ export default function Intro() {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
+    const preloadImages = () => {
+      for (let i = 1; i <= 2; i++) {
+        const image = new Image();
+        image.src = `/img/intro_${i}.jpg`;
+      }
+    };
+  
+    preloadImages();
+  
     const timer = setInterval(() => {
-      setCount((prev) => prev + 1);
-      console.log(count);
+      setCount((prev) => {
+        const nextCount = prev + 1;
+        console.log(nextCount);
         if (imgRef.current) {
-          imgRef.current.src = `/img/intro_${count}.jpg`;
+          imgRef.current.src = `/img/intro_${nextCount}.jpg`;
         }
-      }, 1000);
-
-    if (count === 4) {       
+        return nextCount;
+      });
+    }, 1500);
+  
+    if (count === 3) {       
       clearInterval(timer);
       navigate("main");
     }
-
+  
     return () => clearInterval(timer);
   }, [count, navigate]);
 
