@@ -1,28 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SpeechBubble.module.css';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import GetImgStorage from '../../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
 
-const textArr: string[] = ['안녕', '졸려', '배고파'];
+const BubbleBtn = styled.button`
+  width: calc(100% / 8);
+  height: calc(100% / 6);
+  position: absolute;
+  top: 25%;
+  left: 51.8%;
+  background: transparent;
+  border: none;
+  z-index: -1;
+`
+
+const BubbleImg = styled.img`
+  width: 100%;
+`
 
 export default function SpeechBubble() {
   const [num, setNum] = useState<number>(0);
-  const [text, setText] = useState<string>(textArr[num]);
+
+  const storage = new GetImgStorage();
+  const { data: myroomBubble } = useQuery({
+    queryKey: ['myroomBubble'],
+    queryFn: async () => {
+      const result = await storage.getImages('myroom/main/bubble');
+      return result;
+    },
+    staleTime: 10000
+  });
 
   const handleBubbleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    num < 2 ? setNum((prev) => prev + 1) : setNum((prev) => prev - 2);
+    num < 5 ? setNum((prev) => prev + 1) : setNum(0);
   };
 
-  useEffect(() => {
-    setText(textArr[num]);
-  }, [num]);
-
   return (
-    <button 
-      className={styles.bubble}
-      onClick={(e) => handleBubbleClick(e)}
-    >
-      {text}
-    </button>
+    <>
+      {myroomBubble &&
+        <BubbleBtn
+          onClick={(e) => handleBubbleClick(e)}
+        >
+          <BubbleImg src={myroomBubble[num]}></BubbleImg>
+        </BubbleBtn>
+      }
+    </>
   );
 }
 

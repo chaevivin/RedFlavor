@@ -1,8 +1,44 @@
 import React, { useState } from 'react';
-import styles from './StatusBar.module.css';
+import GetImgStorage from '../../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
+import styled from 'styled-components';
+
+const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
+  background-image: url(${p => p.$imgurl});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: calc(100% / 7);
+  height: calc(100% / 14);
+  position: absolute;
+  top: 8.9%;
+  right: 16%;
+  z-index: -1;
+`
+
+const StatusText = styled.input`
+  width: 86%;
+  position: absolute;
+  top: 22%;
+  left: 6%;
+  right: 0;
+  font-size: 1%;
+  background: transparent;
+  border: none;
+  font-family: '소야꼬마9';
+`
 
 export default function StatusBar() {
   const [status, setStatus] = useState<string>('텍스트를 입력해 보세요.');
+
+  const storage = new GetImgStorage();
+  const { data: myroomStatus } = useQuery({
+    queryKey: ['myroomStatus'],
+    queryFn: async () => {
+      const result = await storage.getImages('myroom/main/status');
+      return result;
+    },
+    staleTime: 10000
+  });
 
   const handleStatusFocus = () => {
     setStatus('');
@@ -13,17 +49,19 @@ export default function StatusBar() {
   }
 
   return (
-    <form>
-      <input 
-        className={styles.statusbar}
-        type='text'
-        value={status}
-        onFocus={() => handleStatusFocus()}
-        onChange={(e) => handleStatusChange(e)}
-        maxLength={9}
-      />
-    </form>
-    
+    <>
+      {myroomStatus &&
+        <StatusBackground $imgurl={myroomStatus[0]}>
+          <StatusText
+            type='text'
+            value={status}
+            onFocus={() => handleStatusFocus()}
+            onChange={(e) => handleStatusChange(e)}
+            maxLength={15}
+          />
+        </StatusBackground>
+      }
+    </>
   );
 }
 
