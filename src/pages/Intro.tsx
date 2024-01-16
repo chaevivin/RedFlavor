@@ -1,7 +1,16 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import styles from './Intro.module.css';
+import styled from 'styled-components';
+
+const Container = styled.section`
+  display: flex;
+  justify-content: center;
+`
+
+const Background = styled.img`
+  height: 100vh;
+`
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -26,9 +35,9 @@ export default function Intro() {
   }, [count, navigate]);
 
   return (
-    <article className={styles.container}>
-      <img ref={imgRef} alt='Intro Background' src='/img/intro_1.jpg' className={styles.background} />
-    </article>
+    <Container>
+      <Background ref={imgRef} alt='Intro Background' src='/img/intro_1.jpg' />
+    </Container>
   );
 }
 
