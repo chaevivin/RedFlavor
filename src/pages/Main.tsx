@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
@@ -36,7 +36,7 @@ const CheckBox = styled.img`
   left: -2.7rem;
 `
 
-const LinkButton = styled(Link)<{ $imgurl: string | undefined }>`
+const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
@@ -50,7 +50,7 @@ const LinkButton = styled(Link)<{ $imgurl: string | undefined }>`
   text-decoration: none;
   margin: 1.4rem 0;
   font-size: 1.5rem;
-`
+`)
 
 export default function Main() {
   const storage = new GetImgStorage();
@@ -60,8 +60,20 @@ export default function Main() {
       const result = await storage.getImages('main');
       return result;
     },
-    staleTime: 10000
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
   });
+
+  const preloadImages = (imageUrls: string[] | undefined) => {
+    imageUrls?.forEach((url) => {
+      const image = new Image();
+      image.src = url;
+    });
+  };
+  
+  useEffect(() => {
+    preloadImages(mainList);
+  }, [mainList]);
 
   return (
     <>
@@ -79,7 +91,7 @@ export default function Main() {
             </ButtonContainer>
             <ButtonContainer>
               <CheckBox src={mainList[6]}></CheckBox>
-              <LinkButton $imgurl={mainList[4]} to='/myroom'>마이룸</LinkButton>
+              <LinkButton $imgurl={mainList[4]} to='/loading'>마이룸</LinkButton>
             </ButtonContainer>
             <ButtonContainer>
               <CheckBox src={mainList[6]}></CheckBox>
