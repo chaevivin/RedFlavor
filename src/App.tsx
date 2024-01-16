@@ -10,6 +10,7 @@ import PlayList from './pages/PlayList';
 import ProfileDetail from './pages/ProfileDetail';
 import ErrorPage from './pages/ErrorPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Loading from './pages/Loading';
 
 const router = createBrowserRouter([
   {
@@ -18,10 +19,11 @@ const router = createBrowserRouter([
       { index: true, element: <Intro /> },
       { path: 'main', element: <Main /> },
       { path: 'profile', element: <Profile /> },
+      { path: 'profile/:profileId', element: <ProfileDetail /> },
       { path: 'photocard', element: <PhotoCard /> },
       { path: 'myroom', element: <MyRoom /> },
       { path: 'playlist', element: <PlayList /> },
-      { path: 'profile/:profileId', element: <ProfileDetail /> },
+      { path: 'loading', element: <Loading /> },
       { errorElement: <ErrorPage /> },
     ]
   }
