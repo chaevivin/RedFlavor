@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Back from '../components/Back/Back';
 import GetImgStorage from '../api/getImgStorage';
@@ -109,20 +109,33 @@ export default function ProfileDetail() {
       const result = await storage.getImages(`profile/profileDetail/${profileId}`);
       return result;
     },
-    staleTime: 1000
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
   });
 
-  useEffect(() => {
-    async function getProfile () {
-      // 이 작업을 많이 해야 한다면 전용 억제 메서드로 변경
-      await sleep(1);
-      const docRef = doc(database, 'profile', `${profileId}`)
-      const q = await getDoc(docRef);
-      const data = q.data();
-      setProfile(data);
-    }
-    getProfile();
+  const getProfile = useMemo(() => async () => {
+    const docRef = doc(database, 'profile', `${profileId}`);
+    const q = await getDoc(docRef);
+    const data = q.data();
+    setProfile(data);
   }, [profileId]);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile, profileId]);
+
+  const preloadImages = (imageUrls: (string | undefined)[]) => {
+    imageUrls
+      .filter((url) => url) // 필요한 경우에만 유효한 URL을 골라냅니다.
+      .forEach((url) => {
+        const image = new Image();
+        image.src = url as string; // undefined가 아님을 확인했으므로 타입 캐스팅을 사용합니다.
+      });
+  };
+  
+  useEffect(() => {
+    preloadImages([detailList?.[1], detailList?.[3], detailList?.[0], detailList?.[4], detailList?.[5], detailList?.[2]]);
+  }, [detailList]);
 
   return (
     <>
