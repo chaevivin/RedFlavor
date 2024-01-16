@@ -15,7 +15,7 @@ const BubbleBtn = styled.button`
 `
 
 const BubbleImg = styled.img`
-  width: 100%;
+  height: calc(100% / 1.2);
 `
 
 export default function SpeechBubble() {

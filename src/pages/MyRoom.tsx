@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Character from '../components/Character/Character';
 import SpeechBubble from '../components/SpeechBubble/SpeechBubble';
 import StatusBar from '../components/StatusBar/StatusBar';
@@ -84,8 +84,28 @@ export default function MyRoom() {
       const result = await storage.getImages('myroom/main/background');
       return result;
     },
-    staleTime: 10000
+    staleTime: 1000 * 60 * 3,
+    gcTime: 1000 * 60 * 60,
   });
+
+  const preloadImages = async (imageUrls: string[] | undefined) => {
+    await Promise.all(
+      imageUrls?.map(
+        (url) =>
+          new Promise((resolve) => {
+            const image = new Image();
+            image.src = url;
+            image.onload = resolve;
+          })
+      ) || []
+    );
+  };
+
+  useEffect(() => {
+    if (myroomBackground) {
+      preloadImages(myroomBackground);
+    }
+  }, [myroomBackground]);
   
   const handleMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
