@@ -38,7 +38,7 @@ const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
 `
 
 const Title = styled.p<{ $color: string }>`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: ${p => p.$color};
   text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
   margin: 5.3rem 0 1rem 0;     /* 요소 가운데 정렬 직접하려면 margin-left 값 조정하기 */
@@ -57,7 +57,7 @@ const ItemTitle = styled.p`
   font-size: 1.3rem;
   margin: 0;
   color: #ffffff;
-  text-shadow: -1px 0 #5d404f, 0 1px #5d404f, 1px 0 #5d404f, 0 -1px #5d404f;
+  text-shadow: -1.5px 0 #5d404f, 0 1.5px #5d404f, 1.5px 0 #5d404f, 0 -1.5px #5d404f;
 `
 
 const SymbolContainer = styled.div`

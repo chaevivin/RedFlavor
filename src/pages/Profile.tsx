@@ -64,7 +64,7 @@ const ButtonContainer = styled.div`
 const BottomLogo = styled.img`
   width: calc(373px / 3);
   position: absolute;
-  bottom: 7%;
+  bottom: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
 `

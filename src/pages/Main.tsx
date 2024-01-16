@@ -13,7 +13,7 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
 `
 
 const Logo = styled.img`
-  width: calc(738px / 3);
+  width: 100%;
   margin-bottom: 1.6rem;
 `
 
@@ -64,27 +64,31 @@ export default function Main() {
   });
 
   return (
-    <Background $imgurl={mainList && mainList[0]}>
-      <Container>
-        <Logo src={mainList && mainList[8]}></Logo>
-        <ButtonContainer>
-          <CheckBox src={mainList && mainList[6]}></CheckBox>
-          <LinkButton $imgurl={mainList && mainList[2]} to='/profile'>프로필 보기</LinkButton>
-        </ButtonContainer>
-        <ButtonContainer>
-          <CheckBox src={mainList && mainList[6]}></CheckBox>
-          <LinkButton $imgurl={mainList && mainList[3]} to='/photocard'>포토카드 꾸미기</LinkButton>
-        </ButtonContainer>
-        <ButtonContainer>
-          <CheckBox src={mainList && mainList[6]}></CheckBox>
-          <LinkButton $imgurl={mainList && mainList[4]} to='/myroom'>마이룸</LinkButton>
-        </ButtonContainer>
-        <ButtonContainer>
-          <CheckBox src={mainList && mainList[6]}></CheckBox>
-          <LinkButton $imgurl={mainList && mainList[5]} to='/playlist'>playlist</LinkButton>
-        </ButtonContainer>
-      </Container>
-    </Background>
+    <>
+      {mainList &&
+        <Background $imgurl={mainList[0]}>
+          <Container>
+            <Logo src={mainList[7]}></Logo>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[2]} to='/profile'>프로필 보기</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[3]} to='/photocard'>포토카드 꾸미기</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[4]} to='/myroom'>마이룸</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[5]} to='/playlist'>playlist</LinkButton>
+            </ButtonContainer>
+          </Container>
+        </Background>
+      }
+    </>
   );
 }
 
