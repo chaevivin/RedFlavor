@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -26,15 +27,26 @@ const Character = styled.img<{ $imgwidth: number }>`
 export default function MemberButton({ name, nameUrl, imgUrl, width }: MemberButtonProps) {
   const navigate = useNavigate();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, name: string) => {
-    e.preventDefault();
+  const preloadImage = (url: string | undefined) => {
+    if (url) {
+      const image = new Image();
+      image.src = url;
+    }
+  };
+  
+  useEffect(() => {
+    preloadImage(nameUrl);
+    preloadImage(imgUrl);
+  }, [nameUrl, imgUrl]);
+
+  const handleClick = () => {
     navigate(`/profile/${name}`);
   }
 
   return (
-    <MemberProfileButton onClick={(e) => handleClick(e, name)}>
+    <MemberProfileButton onClick={handleClick}>
       <Name src={nameUrl} ></Name>
-      <Character src={imgUrl} $imgwidth={width}></Character>
+      <Character src={imgUrl} $imgwidth={width} />
     </MemberProfileButton>
   );
 }

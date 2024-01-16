@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/Back/Back';
 import styled from 'styled-components';
@@ -79,8 +79,20 @@ export default function Profile() {
       const result = await storage.getImages('profile/profileMain');
       return result;
     },
-    staleTime: 10000
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
   });
+
+  const preloadImages = (imageUrls: string[] | undefined) => {
+    imageUrls?.forEach((url) => {
+      const image = new Image();
+      image.src = url;
+    });
+  };
+  
+  useEffect(() => {
+    preloadImages(profileList);
+  }, [profileList]);
 
   return (
     <>
