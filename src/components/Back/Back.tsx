@@ -13,9 +13,9 @@ const BackButton = styled.button<{ $buttoncolor: string }>`
   border: none;
   background: none;
   font-size: 1.3rem;
-  position: absolute;
+  /* position: absolute;
   top: 8%;
-  left: 7%;
+  left: 7%; */
   padding: 0;
 `
 

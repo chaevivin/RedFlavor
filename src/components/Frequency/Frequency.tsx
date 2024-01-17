@@ -1,11 +1,29 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import styles from './Frequency.module.css';
 import { useAppSelector } from '../../hook/reduxHook';
 import { musicValue } from './../../reducers/musicSlice';
+import styled from 'styled-components';
+
+interface FrequencyProps {
+  start: number;
+  color: string;
+}
 
 const sequence = [1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1];
 
-export default function Frequency({ start }: { start: number }) {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  margin-right: 0.2rem;
+`
+
+const FrequencyBox = styled.div<{ $color: string }>`
+  width: calc(59px / 3);
+  height: calc(19px / 3);
+  margin-bottom: 0.1rem;
+  background-color: ${p => p.$color};
+`
+
+export default function Frequency({ start, color }: FrequencyProps) {
   const [randomInt, setRandomInt] = useState(0);
   const array = useRef<number[]>([]);
   const music = useAppSelector(musicValue);
@@ -34,12 +52,12 @@ export default function Frequency({ start }: { start: number }) {
   }, [randomInt, music]);
 
   return (
-    <div className={styles.container}>
+    <Container>
       {/* randomInt 개수만큼 반복 */}
       {array.current.map((_, index) => (
-        <div key={index} className={styles.frequency}></div>
+        <FrequencyBox key={index} $color={color}></FrequencyBox>
       ))}
-    </div>
+    </Container>
   );
 }
 
