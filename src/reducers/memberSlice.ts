@@ -6,7 +6,7 @@ export interface memberState {
 }
 
 const initialState: memberState = {
-  value: 'joy'
+  value: 'irene'
 };
 
 export const memberSlice = createSlice({

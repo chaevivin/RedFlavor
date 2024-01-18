@@ -26,7 +26,7 @@ export default function Character() {
   const dispatch = useAppDispatch();
   const member = useAppSelector(memberValue);
 
-  const [num, setNum] = useState(1);
+  const [num, setNum] = useState(0);
 
   const storage = new GetImgStorage();
   const { data: myroomCharacter } = useQuery({
