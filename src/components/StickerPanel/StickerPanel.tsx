@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import ImgStorage from '../../api/getImgStorage';
 import { fabric } from 'fabric';
-import { useAppSelector } from '../../hook/reduxHook';
+import GetImgStorage from '../../api/getImgStorage';
 
 interface StickerPanelProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
 export default function StickerPanel({ fabricCanvasRef }: StickerPanelProps) {
-  const storage = new ImgStorage();
+  const storage = new GetImgStorage();
   const { isLoading, isError, data: stickerList } = useQuery({
     queryKey: ['stickerList'], 
     queryFn: async () => { 

@@ -9,6 +9,29 @@ import { selectPanel } from '../reducers/panelSlice';
 import PhotoCardPanel from '../components/PhotoCardPanel/PhotoCardPanel';
 import PhotoCardImg from '../components/PhotoCardImg/PhotoCardImg';
 import PhotoCardSave from '../components/PhotoCardSave/PhotoCardSave';
+import styled from 'styled-components';
+import GetImgStorage from '../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
+
+const Background = styled.section`
+  background-color: #f8f2f2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
+
+const Container = styled.div`
+  display: flex;
+  width: calc(1081px / 3);
+  justify-content: space-around;
+  margin-bottom: 2rem;
+`
+
+const TitleImg = styled.img`
+  width: calc(465px / 3);
+`
 
 export default function PhotoCard() {
   const navigate = useNavigate();
@@ -16,25 +39,42 @@ export default function PhotoCard() {
   const openPanel = useAppSelector(selectPanel);
 
   const saveTargetRef = useRef<HTMLElement | null>(null);
-  const clearCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const clearCanvasRef = useRef<fabric.Canvas | null>(null);
+  const fabricCanvasRef = useRef<fabric.Canvas | null>(null);
+
+  const storage = new GetImgStorage();
+  const { data: photocardTitle } = useQuery({
+    queryKey: ['photocardTitle'],
+    queryFn: async () => {
+      const result = await storage.getImages('photocard/photocardMain/title');
+      return result;
+    },
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
+  });
 
   return (
-    <section>
-      {openPanel || (
-        <>
-          <Back navigate={navigate} />
-          <h1>포토카드 꾸미기</h1>
-          <PhotoCardSave saveTargetRef={saveTargetRef} />
-        </>
-      )}
-      <PhotoCardImg 
-        saveTargetRef={saveTargetRef} 
-        clearCanvasRef={clearCanvasRef} 
-      />
-      {showExample && <PhotoCardExample />}
-      {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
-      {openPanel && <PhotoCardPanel />}
-    </section>
+    <>
+      {photocardTitle &&
+        <Background>
+          {openPanel || (
+            <Container>
+              <Back navigate={navigate} color='#c4b5b5' />
+              <TitleImg src={photocardTitle[0]} alt='photocard title' />
+              <PhotoCardSave saveTargetRef={saveTargetRef} />
+            </Container>
+          )}
+          <PhotoCardImg 
+            saveTargetRef={saveTargetRef} 
+            clearCanvasRef={clearCanvasRef} 
+            fabricCanvasRef={fabricCanvasRef}
+          />
+          {showExample && <PhotoCardExample />}
+          {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
+          {openPanel && <PhotoCardPanel fabricCanvasRef={fabricCanvasRef} />}
+        </Background>
+      }
+    </>
   );
 }
 

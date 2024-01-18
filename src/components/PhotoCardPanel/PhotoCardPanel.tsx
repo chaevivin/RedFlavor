@@ -9,7 +9,11 @@ import StickerPanel from '../StickerPanel/StickerPanel';
 import BrushPanel from '../BrushPanel/BrushPanel';
 import ErrorPage from '../../pages/ErrorPage';
 
-export default function PhotoCardPanel() {
+interface PhotoCardPanelProps {
+  fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+}
+
+export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps) {
   const panel = useAppSelector(selectPanelValue);
 
   return (
@@ -22,7 +26,7 @@ export default function PhotoCardPanel() {
           case 'frame':
             return <FramePanel />;
           case 'sticker':
-            return <StickerPanel />;
+            return <StickerPanel fabricCanvasRef={fabricCanvasRef} />;
           case 'brush':
             return <BrushPanel />;
           default:
