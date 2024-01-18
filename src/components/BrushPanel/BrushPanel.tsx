@@ -3,7 +3,6 @@ import BrushType from '../BrushType/BrushType';
 import EraserType from '../EraserType/EraserType';
 import { useAppDispatch } from '../../hook/reduxHook';
 import { brushType } from '../../reducers/brushTypeSlice';
-import { startEdit } from '../../reducers/isEditableSlice';
 
 export default function BrushPanel() {
   const dispatch = useAppDispatch();
@@ -11,7 +10,6 @@ export default function BrushPanel() {
   const handleBrushTypeClick = (e: React.MouseEvent<HTMLButtonElement>, type: string) => {
     e.preventDefault();
     dispatch(brushType(type));
-    dispatch(startEdit());
   };
   
 

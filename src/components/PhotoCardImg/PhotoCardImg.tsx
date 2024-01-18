@@ -1,198 +1,145 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectColorValue } from '../../reducers/changeColorSlice';
 import { selectBrushTypeValue } from '../../reducers/brushTypeSlice';
 import { selectEraserValue } from '../../reducers/changeEraserSlice';
-import styles from './PhotoCardImg.module.css';
-import { selectisEditable } from '../../reducers/isEditableSlice';
-
-interface Coordinate {
-  x: number;
-  y: number;
-}
+import { selectPanelValue } from '../../reducers/choosePanelSlice';
+import styled from 'styled-components';
+import { memberValue } from '../../reducers/memberSlice';
+import GetImgStorage from '../../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
+import { fabric } from "fabric";
 
 interface PhotoCardImgProps {
   saveTargetRef: React.MutableRefObject<HTMLElement | null>;
-  clearCanvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+  clearCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+  fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
-export default function PhotoCardImg({ saveTargetRef, clearCanvasRef }: PhotoCardImgProps) {
+const PhotocardSection = styled.section`
+  margin-bottom: 1.5rem;
+`
+
+const Photocard = styled.canvas`
+  width: calc(1081px / 3);
+  height: calc(1667px / 3);
+`
+
+export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanvasRef }: PhotoCardImgProps) {
   const nowColor = useAppSelector(selectColorValue);
   const nowBrush = useAppSelector(selectBrushTypeValue);
   const nowSize = useAppSelector(selectEraserValue);
+  const panel = useAppSelector(selectPanelValue);
 
-  const isEditable = useAppSelector(selectisEditable);
+  // 멤버 변경 시 이미지, 배경색 변경
+  const storage = new GetImgStorage();
+  const { data: members } = useQuery({
+    queryKey: ['members'],
+    queryFn: async () => {
+      const result = await storage.getImages('photocard/photocardMain/members');
+      return result;
+    },
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
+  });
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [position, setPosition] = useState<Coordinate | undefined>(undefined);
-  const [isDrawing, setDrawing] = useState<boolean>(false);
-  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
+  const nowMember = useAppSelector(memberValue);
+  const [imgurl, setImgurl] = useState<string | undefined>(members?.[0]);
+  const [backgroundColor, setBackgroundColor] = useState<string>('#ffa0d4');
 
-  const getCoordinates = (e: MouseEvent): Coordinate | undefined => {   
-    if (!canvasRef.current) return;
-    const canvas: HTMLCanvasElement = canvasRef.current;
-    return {
-      x: e.clientX - canvas.offsetLeft,
-      y: e.clientY - canvas.offsetTop
-    };
-  };
-
-  const drawLine = (originalPosition: Coordinate, newPosition: Coordinate) => {
-    if (!canvasRef.current) return;
-
-    if (ctx) {
-      ctx.globalCompositeOperation = nowBrush === 'brush' ? 'screen' : 'destination-out';
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = nowSize;
-      ctx.strokeStyle = 'white';
-
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = nowColor;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-
-      ctx.beginPath();
-      ctx.moveTo(originalPosition.x, originalPosition.y);
-      ctx.lineTo(newPosition.x, newPosition.y);
-      ctx.closePath();
-
-      ctx.stroke();
-    }
-  };
-
-  const startDraw = useCallback((e: MouseEvent) => {
-    const coordinates = getCoordinates(e);
-    if (coordinates) {
-      setDrawing(true);
-      setPosition(coordinates);
-    }
-  }, []);
-
-  const draw = useCallback((e: MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (isDrawing) {
-      const newPosition = getCoordinates(e);
-      if (position && newPosition) {
-        drawLine(position, newPosition);
-        setPosition(newPosition);
+  useEffect(() => {
+    if (members) {
+      switch (nowMember) {
+        case 'irene':
+          setImgurl(members[0]);
+          setBackgroundColor('#ffa0d4');
+          break;
+        case 'seulgi':
+          setImgurl(members[2]);
+          setBackgroundColor('#fcf199');
+          break;
+        case 'wendy':
+          setImgurl(members[3]);
+          setBackgroundColor('#99c8fc');
+          break;
+        case 'joy':
+          setImgurl(members[1]);
+          setBackgroundColor('#aafc99');
+          break;
+        case 'yeri':
+          setImgurl(members[4]);
+          setBackgroundColor('#cd99fc');
+          break;
       }
     }
-  }, [isDrawing, position]);
+  }, [members, nowMember]);
 
-  const stopDraw = useCallback(() => {
-    setDrawing(false);
-  }, []);
+  // const canvasRef = useRef(null);
+  const [brushColor, setBrushColor] = useState<string>('#ffffff');
+  const [canvas, setCanvas] = useState<fabric.Canvas | null>();
 
-  // mobile
-  const startTouch = useCallback((e: TouchEvent) => {
-    e.preventDefault();
-    if (!canvasRef.current) return;
-    const canvas: HTMLCanvasElement = canvasRef.current;
-
-    const touch = e.touches[0];
-    const mouseEvent = new MouseEvent('mousedown', {
-      clientX: touch.clientX,
-      clientY: touch.clientY
-    });
-    
-    canvas.dispatchEvent(mouseEvent);
-  }, []);
-
-  const touch = useCallback((e: TouchEvent) => {
-    e.preventDefault();
-    if (!canvasRef.current) return;
-    const canvas: HTMLCanvasElement = canvasRef.current;
-
-    const touch = e.touches[0];
-    const mouseEvent = new MouseEvent('mousemove', {
-      clientX: touch.clientX,
-      clientY: touch.clientY
+  // 캔버스 초기화
+  useLayoutEffect(() => {
+    const newCanvas = new fabric.Canvas('canvas', {
+      height: 555,
+      width: 360,
+      backgroundColor: backgroundColor,
+      backgroundImage: imgurl,
     });
 
-    canvas.dispatchEvent(mouseEvent);
+    setCanvas(newCanvas);
   }, []);
 
-  const stopTouch = useCallback((e: TouchEvent) => {
-    e.preventDefault();
-    if (!canvasRef.current) return;
-    const canvas: HTMLCanvasElement = canvasRef.current;
-
-    const mouseEvent = new MouseEvent('mouseup', {});
-    canvas.dispatchEvent(mouseEvent);
-  }, []);
-
+  // Brush 패널일때만 drawingMode = true
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (canvas) {
+      if (panel === 'brush') {
+        canvas.isDrawingMode = true;
+        canvas.renderAll();
+        setCanvas(canvas);
+      } else {
+        canvas.isDrawingMode = false;
+        canvas.renderAll();
+        setCanvas(canvas);
+      }
+    }
+  }, [canvas, panel])
 
-    if (!isEditable) return;
-
-    const canvas: HTMLCanvasElement = canvasRef.current;
-    setCtx(canvas.getContext('2d'));
-    clearCanvasRef.current = canvasRef.current;
-
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDraw);
-    canvas.addEventListener('mouseleave', stopDraw);
-
-    canvas.addEventListener('touchstart', startTouch);
-    canvas.addEventListener('touchmove', touch);
-    canvas.addEventListener('touchend', stopTouch);
-
-    return () => {
-      canvas.removeEventListener('mousedown', startDraw);
-      canvas.removeEventListener('mousemove', draw);
-      canvas.removeEventListener('mouseup', stopDraw);
-      canvas.addEventListener('mouseleave', stopDraw);
-
-      canvas.removeEventListener('touchstart', startTouch);
-      canvas.removeEventListener('touchmove', touch);
-      canvas.removeEventListener('touchend', stopTouch);
-    };
-  }, [clearCanvasRef, draw, isEditable, startDraw, startTouch, stopDraw, stopTouch, touch]);
-
-  // 지우개
+  // 캔버스 배경색, 배경 이미지 변경
   useEffect(() => {
-    if (!canvasRef.current || !ctx) return;
-
-    if (nowBrush === 'eraser') ctx.globalCompositeOperation = "destination-out";
-    if (nowBrush === 'brush') ctx.globalCompositeOperation = "lighter";
-
-  }, [ctx, nowBrush]);
-
-  // 브러쉬 사이즈 변경
-  useEffect(() => {
-    if (!canvasRef.current || !ctx) return;
-    ctx.lineWidth = nowSize;
-  }, [nowSize, ctx]);
+    if (canvas && imgurl) {
+      canvas.setBackgroundColor(backgroundColor, canvas.renderAll.bind(canvas));
+      canvas.setBackgroundImage(imgurl, canvas.renderAll.bind(canvas), {
+        scaleX: 0.35,
+        scaleY: 0.35
+      });
+    }
+  }, [backgroundColor, canvas, imgurl]);
 
   // 브러쉬 색 변경
   useEffect(() => {
-    if (!canvasRef.current || !ctx) return;
-    ctx.strokeStyle = nowColor;
-  }, [nowColor, ctx]);
+    if (canvas) {
+      canvas.freeDrawingBrush.color = nowColor;
+      canvas.freeDrawingBrush.shadow = new fabric.Shadow({
+        blur: 10,
+        offsetX: 0,
+        offsetY: 0,
+        affectStroke: true,
+        color: nowColor
+      });
+      canvas.renderAll();
+    }
+  }, [canvas, nowColor]);
 
-  // const initCanvas = () => (
-  //   canvasRef.current = new fabric.Canvas('canvas', {
-  //     height: 500,
-  //     width: 500,
-  //     isDrawingMode: true,
-  //     backgroundImage: '/img/joy.png',
-  //   })
-  // );
-
-  const setRefs = (el: HTMLCanvasElement) => {
-    saveTargetRef.current = el;
-    canvasRef.current = el;
-  };
+  // const setRefs = (el: HTMLCanvasElement | fabric.Canvas) => {
+  //   saveTargetRef.current = el;
+  //   canvasRef.current = el;
+  // };
 
   return (
-    <section>
-      <canvas ref={setRefs} width={500} height={500} className={styles.canvas} />
-    </section>
+    <PhotocardSection>
+      <Photocard id='canvas' />
+    </PhotocardSection>
   );
 }
 
