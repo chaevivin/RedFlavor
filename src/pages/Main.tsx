@@ -64,15 +64,10 @@ export default function Main() {
     gcTime: 1000 * 60 * 60,
   });
 
-  const preloadImages = (imageUrls: string[] | undefined) => {
-    imageUrls?.forEach((url) => {
-      const image = new Image();
-      image.src = url;
-    });
-  };
-  
   useEffect(() => {
-    preloadImages(mainList);
+    if (mainList){
+      storage.preloadImgs(mainList);
+    }
   }, [mainList]);
 
   return (

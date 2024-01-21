@@ -41,6 +41,12 @@ export default function HeartBar() {
 
   useEffect(() => {
     if (myroomHeart) {
+      storage.preloadImgs(myroomHeart);
+    }
+  }, [myroomHeart]);
+
+  useEffect(() => {
+    if (myroomHeart) {
       heartRefs.current.forEach((heartRef) => {
         const id = parseInt(heartRef.id);
         if (id === heartNum) {

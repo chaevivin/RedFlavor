@@ -83,6 +83,11 @@ export default function TrackList() {
     gcTime: 1000 * 60 * 60,
   });
 
+  useEffect(() => {
+    if (tracks) {
+      storage.preloadImgs(tracks);
+    }
+  }, [tracks]);
   
   return (
     <>

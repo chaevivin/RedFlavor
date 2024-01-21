@@ -43,6 +43,12 @@ export default function ProgressBar() {
     gcTime: 1000 * 60 * 60,
   });
 
+  useEffect(() => {
+    if (progressList) {
+      storage.preloadImgs(progressList);
+    }
+  }, [progressList]);
+
   // 3분동안 0.5초마다 currentTime이 1씩 증가
   useEffect(() => {
     if (music) {

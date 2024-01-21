@@ -95,6 +95,12 @@ export default function Loading() {
     gcTime: 1000 * 60 * 60,
   });
 
+  useEffect(() => {
+    if (loading) {
+      storage.preloadImgs(loading);
+    }
+  }, [loading]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -104,25 +110,6 @@ export default function Loading() {
 
     return () => clearTimeout(timer);
   }, [navigate]);
-
-  const preloadImages = async () => {
-    await Promise.all(
-      loading?.map(
-        (url) =>
-          new Promise((resolve) => {
-            const image = new Image();
-            image.src = url;
-            image.onload = resolve;
-          })
-      ) || []
-    );
-  };
-
-  useEffect(() => {
-    if (loading) {
-      preloadImages();
-    }
-  }, [loading]);
 
   return (
     <>

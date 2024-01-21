@@ -88,22 +88,9 @@ export default function MyRoom() {
     gcTime: 1000 * 60 * 60,
   });
 
-  const preloadImages = async (imageUrls: string[] | undefined) => {
-    await Promise.all(
-      imageUrls?.map(
-        (url) =>
-          new Promise((resolve) => {
-            const image = new Image();
-            image.src = url;
-            image.onload = resolve;
-          })
-      ) || []
-    );
-  };
-
   useEffect(() => {
     if (myroomBackground) {
-      preloadImages(myroomBackground);
+      storage.preloadImgs(myroomBackground);
     }
   }, [myroomBackground]);
   

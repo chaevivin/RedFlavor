@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { closeModal } from './../../reducers/modalSlice';
 import { useAppDispatch } from '../../hook/reduxHook';
 import { memberUpdated } from '../../reducers/memberSlice';
@@ -68,6 +68,12 @@ export default function MyRoomModal() {
     },
     staleTime: 10000
   });
+
+  useEffect(() => {
+    if (myroomModal) {
+      storage.preloadImgs(myroomModal);
+    }
+  }, [myroomModal]);
 
   const handleXClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

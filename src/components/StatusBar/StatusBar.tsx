@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
@@ -39,6 +39,12 @@ export default function StatusBar() {
     },
     staleTime: 10000
   });
+
+  useEffect(() => {
+    if (myroomStatus) {
+      storage.preloadImgs(myroomStatus);
+    }
+  }, [myroomStatus]);
 
   const handleStatusFocus = () => {
     setStatus('');

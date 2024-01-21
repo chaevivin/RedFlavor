@@ -19,5 +19,18 @@ export default class GetImgStorage {
       console.log('storage error ' + error);
     }
   }
+
+  async preloadImgs(url: string[] | undefined) {
+    await Promise.all(
+      url?.map(
+        (url) =>
+          new Promise((resolve) => {
+            const image = new Image();
+            image.src = url;
+            image.onload = resolve;
+          })
+      ) || []
+    );
+  }
 }
 

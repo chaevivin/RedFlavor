@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
@@ -30,6 +30,12 @@ export default function SpeechBubble() {
     },
     staleTime: 10000
   });
+
+  useEffect(() => {
+    if (myroomBubble) {
+      storage.preloadImgs(myroomBubble);
+    }
+  }, [myroomBubble]);
 
   const handleBubbleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

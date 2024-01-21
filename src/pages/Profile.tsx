@@ -82,16 +82,11 @@ export default function Profile() {
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   });
-
-  const preloadImages = (imageUrls: string[] | undefined) => {
-    imageUrls?.forEach((url) => {
-      const image = new Image();
-      image.src = url;
-    });
-  };
   
   useEffect(() => {
-    preloadImages(profileList);
+    if (profileList) {
+      storage.preloadImgs(profileList);
+    }
   }, [profileList]);
 
   return (

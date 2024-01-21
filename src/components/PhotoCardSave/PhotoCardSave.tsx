@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
@@ -52,6 +52,12 @@ export default function PhotoCardSave({ saveTargetRef }: PhotoCardSaveProps) {
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   });
+
+  useEffect(() => {
+    if (saveButton) {
+      storage.preloadImgs(saveButton);
+    }
+  }, [saveButton]);
 
   return (
     <>

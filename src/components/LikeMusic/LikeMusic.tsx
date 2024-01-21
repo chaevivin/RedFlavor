@@ -42,6 +42,12 @@ export default function LikeMusic() {
     gcTime: 1000 * 60 * 60,
   });
 
+  useEffect(() => {
+    if (like) {
+      storage.preloadImgs(like);
+    }
+  }, [like]);
+
   // 하트 버튼을 클릭하면 현재 플레이되고 있는 노래 번호의 liked 값이
   // true -> false
   // false -> true로 변화

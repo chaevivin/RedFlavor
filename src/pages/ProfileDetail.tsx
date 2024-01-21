@@ -123,18 +123,11 @@ export default function ProfileDetail() {
   useEffect(() => {
     getProfile();
   }, [getProfile, profileId]);
-
-  const preloadImages = (imageUrls: (string | undefined)[]) => {
-    imageUrls
-      .filter((url) => url) // 필요한 경우에만 유효한 URL을 골라냅니다.
-      .forEach((url) => {
-        const image = new Image();
-        image.src = url as string; // undefined가 아님을 확인했으므로 타입 캐스팅을 사용합니다.
-      });
-  };
   
   useEffect(() => {
-    preloadImages([detailList?.[1], detailList?.[3], detailList?.[0], detailList?.[4], detailList?.[5], detailList?.[2]]);
+    if (detailList) {
+      storage.preloadImgs([detailList?.[1], detailList?.[3], detailList?.[0], detailList?.[4], detailList?.[5], detailList?.[2]]);
+    }
   }, [detailList]);
 
   return (
