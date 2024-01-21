@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch } from '../../hook/reduxHook';
 import { closeExample } from '../../reducers/exampleSlice';
 import GetImgStorage from '../../api/getImgStorage';
@@ -58,6 +58,12 @@ export default function PhotoCardExample() {
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   });
+
+  useEffect(() => {
+    if (example) {
+      storage.preloadImgs(example);
+    }
+  }, [example]);
 
   return (
     <>

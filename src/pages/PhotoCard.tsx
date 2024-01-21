@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/Back/Back';
 import PhotoCardFooter from '../components/PhotoCardFooter/PhotoCardFooter';
@@ -9,24 +9,31 @@ import { selectPanel } from '../reducers/panelSlice';
 import PhotoCardPanel from '../components/PhotoCardPanel/PhotoCardPanel';
 import PhotoCardImg from '../components/PhotoCardImg/PhotoCardImg';
 import PhotoCardSave from '../components/PhotoCardSave/PhotoCardSave';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 
-const Background = styled.section`
+const Background = styled.section<{ $open: boolean }>`
   background-color: #f8f2f2;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  ${(p) =>
+    p.$open &&
+    css`
+      background-color: black;
+    `
+  }
 `
 
 const Container = styled.div`
   display: flex;
   width: calc(1081px / 3);
   justify-content: space-around;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
 `
 
 const TitleImg = styled.img`
@@ -53,10 +60,16 @@ export default function PhotoCard() {
     gcTime: 1000 * 60 * 60,
   });
 
+  useEffect(() => {
+    if (photocardTitle) {
+      storage.preloadImgs(photocardTitle);
+    }
+  }, [photocardTitle]);
+
   return (
     <>
       {photocardTitle &&
-        <Background>
+        <Background $open={openPanel}>
           {openPanel || (
             <Container>
               <Back navigate={navigate} color='#c4b5b5' />

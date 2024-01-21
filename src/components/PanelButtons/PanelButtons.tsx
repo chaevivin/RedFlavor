@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaCheck } from "react-icons/fa6";
-import { useAppDispatch } from '../../hook/reduxHook';
+import { useAppDispatch, useAppSelector } from '../../hook/reduxHook';
 import { closePanel } from '../../reducers/panelSlice';
-import styles from './PanelButtons.module.css';
-import { choosePanel } from '../../reducers/choosePanelSlice';
+import { choosePanel, selectPanelValue } from '../../reducers/choosePanelSlice';
+import styled, { css } from 'styled-components';
+import GetImgStorage from '../../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
+
+const ButtonSection = styled.section`
+  display: flex;
+  justify-content: space-between;
+  width: 321px;
+`
+
+const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
+  width: calc(196px / 3);
+  height: calc(106px / 3);
+  font-family: '소야꼬마9';
+  background-image: url(${p => p.$imgurl});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fef4f6;
+  text-shadow: -1.5px 0 #f787a7, 0 1.5px #f787a7, 1.5px 0 #f787a7, 0 -1.5px #f787a7;
+  font-size: 1rem;
+  padding: 0;
+  padding-top: 0.2rem;
+
+  ${(p) => 
+    p.$clicked &&
+    css`
+      color: #f787a7;
+      text-shadow: -1.5px 0 #ffeff2, 0 1.5px #ffeff2, 1.5px 0 #ffeff2, 0 -1.5px #ffeff2;
+    `
+  }
+`
+
+const CompleteButton = styled.button`
+  background-color: transparent;
+  font-size: 1.7rem;
+  border: none;
+  cursor: pointer;
+  color: #f787a7;
+`
 
 export default function PanelButtons() {
   const dispatch = useAppDispatch();
+  const panel = useAppSelector(selectPanelValue);
 
   const handleMemberClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -34,34 +76,65 @@ export default function PanelButtons() {
     dispatch(choosePanel('member'));
   };
 
+  const storage = new GetImgStorage();
+  const { data: panelButtons } = useQuery({
+    queryKey: ['panelButtons'],
+    queryFn: async () => {
+      const result = await storage.getImages('photocard/photocardDetail/panelButtons');
+      return result;
+    },
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
+  });
+
+  useEffect(() => {
+    if (panelButtons) {
+      storage.preloadImgs(panelButtons);
+    }
+  }, [panelButtons]);
+
   return (
-    <section>
-      <button
-        onClick={(e) => handleMemberClick(e)}
-      >
-        멤버
-      </button>
-      <button
-        onClick={(e) => handleFrameClick(e)}
-      >
-        프레임
-      </button>
-      <button
-        onClick={(e) => handleStickerClick(e)}
-      >
-        스티커
-      </button>
-      <button
-        onClick={(e) => handleBrushClick(e)}
-      >
-        브러쉬
-      </button>
-      <button
-        onClick={(e) => handleCompleteClick(e)}
-      >
-        <FaCheck className={styles.check} />
-      </button>
-    </section>
+    <>
+      {panelButtons &&
+        <ButtonSection>
+          <div>
+            <PanelButton
+              onClick={(e) => handleMemberClick(e)}
+              $imgurl={panel === 'member' ? panelButtons[1] : panelButtons[0]}
+              $clicked={panel === 'member'}
+            >
+              멤버
+            </PanelButton>
+            <PanelButton
+              onClick={(e) => handleFrameClick(e)}
+              $imgurl={panel === 'frame' ? panelButtons[1] : panelButtons[0]}
+              $clicked={panel === 'frame'}
+            >
+              프레임
+            </PanelButton>
+            <PanelButton
+              onClick={(e) => handleStickerClick(e)}
+              $imgurl={panel === 'sticker' ? panelButtons[1] : panelButtons[0]}
+              $clicked={panel === 'sticker'}
+            >
+              스티커
+            </PanelButton>
+            <PanelButton
+              onClick={(e) => handleBrushClick(e)}
+              $imgurl={panel === 'brush' ? panelButtons[1] : panelButtons[0]}
+              $clicked={panel === 'brush'}
+            >
+              브러쉬
+            </PanelButton>
+          </div>
+          <CompleteButton
+            onClick={(e) => handleCompleteClick(e)}
+          >
+            <FaCheck stroke='white' strokeWidth='1.5rem' />
+          </CompleteButton>
+        </ButtonSection>
+      }
+    </>
   );
 }
 
