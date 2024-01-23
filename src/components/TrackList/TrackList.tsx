@@ -49,8 +49,8 @@ const List = styled.li<{ $nowPlaying: number; $trackNum: number }>`
   ${(p) => 
     p.$nowPlaying === p.$trackNum &&
       css`
-        background-color: #e693a9;
-        text-shadow: -1.5px 0 #ca6b84, 0 1.5px #ca6b84, 1.5px 0 #ca6b84, 0 -1.5px #ca6b84;
+        background-color: #da6486;
+        text-shadow: -1.5px 0 #f48daa, 0 1.5px #f48daa, 1.5px 0 #f48daa, 0 -1.5px #f48daa;
       `
   }
 `

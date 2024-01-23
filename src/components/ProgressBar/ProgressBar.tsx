@@ -10,7 +10,6 @@ const Background = styled.div<{ $imgurl: string | undefined }>`
   
 background-image: url(${p => p.$imgurl});
   background-size: contain;
-  width: calc(767px / 3);
   height: calc(39px / 3);
   position: relative;
 `
