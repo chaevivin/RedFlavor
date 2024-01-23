@@ -36,7 +36,7 @@ const ModalBackground = styled.div<{ $modalState: boolean }>`
   ${(p) =>
     p.$modalState &&
     css`
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(14, 14, 14, 0.68);
       height: 100vh;
   `}
 `
