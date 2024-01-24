@@ -1,32 +1,25 @@
 import React from 'react';
 import BrushType from '../BrushType/BrushType';
-import EraserType from '../EraserType/EraserType';
-import { useAppDispatch } from '../../hook/reduxHook';
-import { brushType } from '../../reducers/brushTypeSlice';
+import BrushSize from './../BrushSize/BrushSize';
+import styled from 'styled-components';
+import UndoRedo from '../UndoRedo/UndoRedo';
 
-export default function BrushPanel() {
-  const dispatch = useAppDispatch();
+interface BrushPanelProps {
+  fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+}
 
-  const handleBrushTypeClick = (e: React.MouseEvent<HTMLButtonElement>, type: string) => {
-    e.preventDefault();
-    dispatch(brushType(type));
-  };
-  
+const Container = styled.div`
+  display: flex;
+`
 
+export default function BrushPanel({ fabricCanvasRef }: BrushPanelProps) {
   return (
     <section> 
-      <button
-        onClick={(e) => handleBrushTypeClick(e, 'brush')}
-      >
-        브러쉬
-      </button>
-      <button
-        onClick={(e) => handleBrushTypeClick(e, 'eraser')}
-      >
-        지우개
-      </button>
+      <Container>
+        <UndoRedo fabricCanvasRef={fabricCanvasRef} />
+        <BrushSize />
+      </Container>
       <BrushType />
-      <EraserType />
     </section>
   );
 }
