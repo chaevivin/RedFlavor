@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PanelButtons from '../PanelButtons/PanelButtons';
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectPanelValue } from '../../reducers/choosePanelSlice';
@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 
 interface PhotoCardPanelProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+  backgroundImgRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const PanelSection = styled.section`
@@ -69,7 +70,7 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   }
 `
 
-export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps) {
+export default function PhotoCardPanel({ fabricCanvasRef, backgroundImgRef }: PhotoCardPanelProps) {
   const panel = useAppSelector(selectPanelValue);
 
   const storage = new GetImgStorage();
@@ -89,6 +90,29 @@ export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps)
     }
   }, [panelBox]);
 
+  // 페이지 이동
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(1);
+  useEffect(() => {
+    switch(panel) {
+      case 'frame':
+        setTotalItems(9);
+        break;
+      case 'sticker':
+        setTotalItems(27);
+        break;
+      case 'brush':
+        setTotalItems(10);
+        break;
+    }
+  }, [panel]);
+  const totalPages = Math.ceil(totalItems / 8);
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <>
       {panelBox &&
@@ -99,6 +123,7 @@ export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps)
                 <MoveButton 
                   $imgurl={panelBox[1]}
                   $left={true}
+                  onClick={() => handlePageChange(currentPage - 1)}
                 >
                   ◀
                 </MoveButton>
@@ -107,9 +132,16 @@ export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps)
                     case 'member':
                       return <MemberPanel />;
                     case 'frame':
-                      return <FramePanel />;
+                      return <FramePanel 
+                        currentPage={currentPage} 
+                        fabricCanvasRef={fabricCanvasRef} 
+                        backgroundImgRef={backgroundImgRef}
+                      />;
                     case 'sticker':
-                      return <StickerPanel fabricCanvasRef={fabricCanvasRef} />;
+                      return <StickerPanel 
+                        currentPage={currentPage} 
+                        fabricCanvasRef={fabricCanvasRef} 
+                      />;
                     case 'brush':
                       return <BrushPanel />;
                     default:
@@ -119,6 +151,7 @@ export default function PhotoCardPanel({ fabricCanvasRef }: PhotoCardPanelProps)
                 <MoveButton 
                   $imgurl={panelBox[1]}
                   $left={false}
+                  onClick={() => handlePageChange(currentPage + 1)}
                 >
                   ▶
                 </MoveButton>

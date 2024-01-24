@@ -110,7 +110,7 @@ export default function PanelButtons() {
               $imgurl={panel === 'frame' ? panelButtons[1] : panelButtons[0]}
               $clicked={panel === 'frame'}
             >
-              프레임
+              배경
             </PanelButton>
             <PanelButton
               onClick={(e) => handleStickerClick(e)}

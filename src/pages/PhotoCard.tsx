@@ -48,6 +48,7 @@ export default function PhotoCard() {
   const saveTargetRef = useRef<HTMLElement | null>(null);
   const clearCanvasRef = useRef<fabric.Canvas | null>(null);
   const fabricCanvasRef = useRef<fabric.Canvas | null>(null);
+  const backgroundImgRef = useRef<HTMLDivElement | null>(null);
 
   const storage = new GetImgStorage();
   const { data: photocardTitle } = useQuery({
@@ -81,10 +82,14 @@ export default function PhotoCard() {
             saveTargetRef={saveTargetRef} 
             clearCanvasRef={clearCanvasRef} 
             fabricCanvasRef={fabricCanvasRef}
+            backgroundImgRef={backgroundImgRef}
           />
           {showExample && <PhotoCardExample />}
           {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
-          {openPanel && <PhotoCardPanel fabricCanvasRef={fabricCanvasRef} />}
+          {openPanel && <PhotoCardPanel 
+            fabricCanvasRef={fabricCanvasRef} 
+            backgroundImgRef={backgroundImgRef} />
+          }
         </Background>
       }
     </>
