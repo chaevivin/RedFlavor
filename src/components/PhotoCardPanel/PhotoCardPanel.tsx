@@ -143,7 +143,9 @@ export default function PhotoCardPanel({ fabricCanvasRef, backgroundImgRef }: Ph
                         fabricCanvasRef={fabricCanvasRef} 
                       />;
                     case 'brush':
-                      return <BrushPanel />;
+                      return <BrushPanel
+                        fabricCanvasRef={fabricCanvasRef}
+                      />;
                     default:
                       return <ErrorPage />;
                   }
