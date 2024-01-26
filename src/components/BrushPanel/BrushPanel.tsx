@@ -1,8 +1,8 @@
 import React from 'react';
 import BrushType from '../BrushType/BrushType';
-import BrushSize from './../BrushSize/BrushSize';
 import styled from 'styled-components';
 import UndoRedo from '../UndoRedo/UndoRedo';
+import BrushSize from '../BrushSize/BrushSize';
 
 interface BrushPanelProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
