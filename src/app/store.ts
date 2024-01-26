@@ -9,8 +9,7 @@ import exampleReducer from '../reducers/exampleSlice';
 import panelReducer from '../reducers/panelSlice';
 import choosePanelReducer from '../reducers/choosePanelSlice';
 import changeColorReducer from '../reducers/changeColorSlice';
-import changeEraserReducer from '../reducers/changeEraserSlice';
-import brushTypeReducer from '../reducers/brushTypeSlice';
+import changeSizeReducer from '../reducers/changeSizeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -24,8 +23,7 @@ export const store = configureStore({
     panel: panelReducer,
     choosePanel: choosePanelReducer,
     changeColor: changeColorReducer,
-    changeEraser: changeEraserReducer,
-    brushType: brushTypeReducer,
+    changeSize: changeSizeReducer,
   }
 });
 

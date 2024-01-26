@@ -10,7 +10,8 @@ interface FramePanelProps {
   backgroundImgRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const backClickedValue: boolean[] = Array.from({ length: 7 }, () => false);
+// 첫 번째 index 값만 true -> 첫 번째 default
+const backClickedValue: boolean[] = Array.from({ length: 7 }, (_, index) => index === 0);
 const backgroundColor = ['#ffa0d4', '#fcf199', '#99c8fc', '#aafc99', '#cd99fc'];
 
 const FrameContainer = styled.ul`
@@ -21,7 +22,7 @@ const FrameContainer = styled.ul`
   grid-gap: 15px;
 `
 
-const FrameButton = styled.button<{ $imgurl: string | undefined; $backClicked: boolean }>`
+const FrameButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;
@@ -32,7 +33,7 @@ const FrameButton = styled.button<{ $imgurl: string | undefined; $backClicked: b
   height: 50px;
 
   ${p => 
-    p.$backClicked &&
+    p.$clicked &&
       css`
         border: solid 2px #d7899f;
         border-radius: 5px;
@@ -41,7 +42,7 @@ const FrameButton = styled.button<{ $imgurl: string | undefined; $backClicked: b
 `
 
 export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImgRef }: FramePanelProps) {
-  const [backClicked, setBackClicked] = useState<boolean[]>(backClickedValue);
+  const [clicked, setClicked] = useState<boolean[]>(backClickedValue);
 
   const storage = new GetImgStorage();
   const queryResults = useQueries({
@@ -88,7 +89,7 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
 
   // frame 버튼 누르면 배경 바뀌거나 프레임 
   const handleAddClick = (index: number) => {
-    setBackClicked((prev) => prev.map((v, i) => (i === index ? !v : false)));
+    setClicked((prev) => prev.map((v, i) => (i === index ? !v : false)));
 
     if (fabricCanvasRef.current && backgroundImgRef.current && frameBackground) {
       // frame 추가
@@ -151,7 +152,7 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
               <FrameButton 
                 $imgurl={url}
                 onClick={() => handleAddClick(index)}
-                $backClicked={backClicked[index]}
+                $clicked={clicked[index]}
               >
               </FrameButton>
             </li>

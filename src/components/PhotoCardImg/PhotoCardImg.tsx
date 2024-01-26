@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectColorValue } from '../../reducers/changeColorSlice';
-import { selectBrushTypeValue } from '../../reducers/brushTypeSlice';
-import { selectEraserValue } from '../../reducers/changeEraserSlice';
 import { selectPanelValue } from '../../reducers/choosePanelSlice';
 import styled, { css } from 'styled-components';
 import { memberValue } from '../../reducers/memberSlice';
@@ -10,6 +8,7 @@ import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 import { fabric } from "fabric";
 import { selectPanel } from '../../reducers/panelSlice';
+import { selectSizeValue } from '../../reducers/changeSizeSlice';
 
 interface PhotoCardImgProps {
   saveTargetRef: React.MutableRefObject<HTMLElement | null>;
@@ -56,8 +55,7 @@ const PhotocardBackground = styled.div<{ $open: boolean; $color: string }>`
 
 export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanvasRef, backgroundImgRef }: PhotoCardImgProps) {
   const nowColor = useAppSelector(selectColorValue);
-  const nowBrush = useAppSelector(selectBrushTypeValue);
-  const nowSize = useAppSelector(selectEraserValue);
+  const nowSize = useAppSelector(selectSizeValue);
   const nowPanel = useAppSelector(selectPanelValue);
   const openPanel = useAppSelector(selectPanel);
 
@@ -111,13 +109,13 @@ export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanv
   }, [members, nowMember]);
 
   // const canvasRef = useRef(null);
-  const [brushColor, setBrushColor] = useState<string>('#ffffff');
   const [canvas, setCanvas] = useState<fabric.Canvas | null>();
 
   // 캔버스 초기화
   useLayoutEffect(() => {
     const newCanvas = new fabric.Canvas('canvas', {
       backgroundImage: imgurl,
+      preserveObjectStacking : true
     });
     setCanvas(newCanvas);
   }, []);
@@ -180,18 +178,26 @@ export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanv
   // 브러쉬 색 변경
   useEffect(() => {
     if (canvas) {
-      canvas.freeDrawingBrush.color = nowColor;
-      canvas.freeDrawingBrush.width = 10;
+      canvas.freeDrawingBrush.color = nowColor.color;
+      canvas.freeDrawingBrush.width = 19;
       canvas.freeDrawingBrush.shadow = new fabric.Shadow({
         blur: 10,
         offsetX: 0,
         offsetY: 0,
         affectStroke: true,
-        color: nowColor
+        color: nowColor.outline
       });
       canvas.renderAll();
     }
   }, [canvas, nowColor]);
+
+  // 브러쉬 사이즈 변경
+  useEffect(() => {
+    if (canvas) {
+      canvas.freeDrawingBrush.width = nowSize;
+      canvas.renderAll();
+    }
+  }, [canvas, nowSize]);
 
 
   return (
