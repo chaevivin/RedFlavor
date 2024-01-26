@@ -14,7 +14,7 @@ import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 
 const Background = styled.section<{ $open: boolean }>`
-  background-color: #f8f2f2;
+  background-color: #fbf8f8;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -46,7 +46,6 @@ export default function PhotoCard() {
   const openPanel = useAppSelector(selectPanel);
 
   const saveTargetRef = useRef<HTMLElement | null>(null);
-  const clearCanvasRef = useRef<fabric.Canvas | null>(null);
   const fabricCanvasRef = useRef<fabric.Canvas | null>(null);
   const backgroundImgRef = useRef<HTMLDivElement | null>(null);
 
@@ -80,12 +79,11 @@ export default function PhotoCard() {
           )}
           <PhotoCardImg 
             saveTargetRef={saveTargetRef} 
-            clearCanvasRef={clearCanvasRef} 
             fabricCanvasRef={fabricCanvasRef}
             backgroundImgRef={backgroundImgRef}
           />
           {showExample && <PhotoCardExample />}
-          {openPanel || <PhotoCardFooter clearCanvasRef={clearCanvasRef} />}
+          {openPanel || <PhotoCardFooter fabricCanvasRef={fabricCanvasRef} />}
           {openPanel && <PhotoCardPanel 
             fabricCanvasRef={fabricCanvasRef} 
             backgroundImgRef={backgroundImgRef} />

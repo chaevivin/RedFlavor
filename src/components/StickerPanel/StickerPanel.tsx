@@ -1,12 +1,20 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { fabric } from 'fabric';
 import GetImgStorage from '../../api/getImgStorage';
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 
 interface StickerPanelProps {
   currentPage: number;
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+}
+
+interface RenderIconType {
+  ctx: CanvasRenderingContext2D;
+  left: number;
+  top: number;
+  styleOverride: any;
+  fabricObject: fabric.Object;
 }
 
 const StickerContainer = styled.ul`
@@ -17,7 +25,7 @@ const StickerContainer = styled.ul`
   grid-gap: 15px;
 `
 
-const StickerButton = styled.button<{ $imgurl: string | undefined }>`
+const StickerButton = styled.button<{ $imgurl: string | undefined; $background: boolean }>`
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;
@@ -26,7 +34,26 @@ const StickerButton = styled.button<{ $imgurl: string | undefined }>`
   cursor: pointer;
   width: 50px;
   height: 50px;
+
+  ${p => 
+    p.$background &&
+      css`
+        background-color: #FCE3E9;
+      `
+  }
 `
+
+const deleteBtn = document.createElement('img');
+deleteBtn.src = '/img/delete.png';
+deleteBtn.width = 8;
+
+// 스티커 삭제
+function deleteObject(eventData: MouseEvent, transform: fabric.Transform) {
+  const canvas = transform.target.canvas;
+  canvas?.remove(transform.target);
+  canvas?.requestRenderAll();
+  return true;
+}
 
 export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPanelProps) {
   const storage = new GetImgStorage();
@@ -67,20 +94,34 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
   const endIndex = startIndex + 8;
   const currentSticker = stickerList?.slice(startIndex, endIndex);
 
-  function deleteObject(eventData: MouseEvent, transform: fabric.Transform) {
-    const canvas = transform.target.canvas;
-    canvas?.remove(transform.target);
-    canvas?.requestRenderAll();
-    return true;
-  }
+  // page 변화할 때마다 인덱스 값 추가
+  const [addIndex, setAddIndex] = useState(0);
+  useEffect(() => {
+    switch (currentPage) {
+      case 1:
+        setAddIndex(0);
+        break;
+      case 2:
+        setAddIndex(8);
+        break;
+      case 3:
+        setAddIndex(16);
+        break;
+      case 4:
+        setAddIndex(24);
+        break;
+    }
+  }, [currentPage]);
 
   const handleAddClick = (index: number) => {
     if (fabricCanvasRef.current && stickerList && frameList) {
-      if (index === 0 || index === 1) {
+      if (currentPage === 1 && (index === 0 || index === 1)) {
         try {
           const url = frameList[index];
           fabric.Image.fromURL(url, (img) => {
             const newImg = img.set({ left: 0, top: 0, scaleX: 0.335, scaleY: 0.335, selectable: true });
+            newImg.borderColor = '#ffffff';
+            newImg.cornerSize = 5;
             newImg.controls.deleteControl = new fabric.Control({
               x: 0.5,
               y: -0.5,
@@ -91,15 +132,17 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
             });
             fabricCanvasRef.current?.add(newImg);
             fabricCanvasRef.current?.renderAll();
-          });
+          }, {crossOrigin: 'anonymous'});
         } catch (error) {
           console.log('sticker panel frame handleAddClick error ' + error);
         }
       } else {
         try {
-          const url = stickerList[index];
+          const url = stickerList[index + addIndex];
           fabric.Image.fromURL(url, (img) => {
             const newImg = img.set({ left: 100, top: 100, scaleX: 0.3, scaleY: 0.3, selectable: true });
+            newImg.borderColor = '#ffffff';
+            newImg.cornerSize = 5;
             newImg.controls.deleteControl = new fabric.Control({
               x: 0.5,
               y: -0.5,
@@ -110,7 +153,7 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
             });
             fabricCanvasRef.current?.add(newImg);
             fabricCanvasRef.current?.renderAll();
-          });
+          }, {crossOrigin: 'anonymous'});
         } catch (error) {
           console.log('sticker panel icon handleAddClick error ' + error);
         }
@@ -127,6 +170,7 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
               <StickerButton 
                 onClick={() => handleAddClick(index)}
                 $imgurl={url}
+                $background={currentPage === 2 && index === 1 && true}
               >
               </StickerButton>
             </li>

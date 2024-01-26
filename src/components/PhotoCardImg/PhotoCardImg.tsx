@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectColorValue } from '../../reducers/changeColorSlice';
 import { selectPanelValue } from '../../reducers/choosePanelSlice';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { memberValue } from '../../reducers/memberSlice';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 import { fabric } from "fabric";
-import { selectPanel } from '../../reducers/panelSlice';
 import { selectSizeValue } from '../../reducers/changeSizeSlice';
+import { selectPanel } from '../../reducers/panelSlice';
 
 interface PhotoCardImgProps {
   saveTargetRef: React.MutableRefObject<HTMLElement | null>;
-  clearCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
   backgroundImgRef: React.MutableRefObject<HTMLDivElement | null>;
 }
@@ -26,34 +25,18 @@ const Container = styled.div`
   position: absolute;
 `
 
-const Photocard = styled.canvas<{ $open: boolean }>`
-  width: 360px;
-  height: 555px;
-
-  ${p => 
-    p.$open &&
-    css`
-      width: 321px;
-      height: 495px;
-    `
-  }
+const Photocard = styled.canvas`
+  width: 350px;
+  height: 495px;
 `
 
-const PhotocardBackground = styled.div<{ $open: boolean; $color: string }>`
-  width: 360px;
-  height: 555px;
+const PhotocardBackground = styled.div<{ $color: string }>`
+  width: 350px;
+  height: 495px;
   background-color: ${p => p.$color};
-
-  ${p => 
-    p.$open &&
-    css`
-      width: 321px;
-      height: 495px;
-    `
-  }
 `
 
-export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanvasRef, backgroundImgRef }: PhotoCardImgProps) {
+export default function PhotoCardImg({ saveTargetRef, fabricCanvasRef, backgroundImgRef }: PhotoCardImgProps) {
   const nowColor = useAppSelector(selectColorValue);
   const nowSize = useAppSelector(selectSizeValue);
   const nowPanel = useAppSelector(selectPanelValue);
@@ -114,51 +97,43 @@ export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanv
   // 캔버스 초기화
   useLayoutEffect(() => {
     const newCanvas = new fabric.Canvas('canvas', {
+      width: 350,
+      height: 495,
       backgroundImage: imgurl,
-      preserveObjectStacking : true
+      preserveObjectStacking: true,
     });
     setCanvas(newCanvas);
   }, []);
 
   // panel이 sticker일 때만 selectable = false
-  // 다은이가 사진 주면 나머지 다 삭제하기
+  // 멤버 변경
   useEffect(() => {
     if (canvas && imgurl) {
-      if (openPanel || nowPanel !== 'sticker') {
-        fabricCanvasRef.current = canvas;
-        canvas.setDimensions({ width: 321, height: 495 }); 
+      fabricCanvasRef.current = canvas;
+      canvas.setBackgroundImage(imgurl, canvas.renderAll.bind(canvas), {
+        scaleX: 0.335,
+        scaleY: 0.335,
+        crossOrigin: 'anonymous'
+      });
+      if (openPanel && nowPanel === 'sticker') {
         const objects = canvas.getObjects();
         for (const i in objects) {
-          objects[i].scaleX = 0.335;
-          objects[i].scaleY = 0.335;
           objects[i].selectable = true;
           objects[i].setCoords();
         }
-        canvas.setBackgroundImage(imgurl, canvas.renderAll.bind(canvas), {
-          scaleX: 0.3,
-          scaleY: 0.3
-        });
         canvas.renderAll();
       } else {
-        canvas.setDimensions({ width: 360, height: 555 });
         const objects = canvas.getObjects();
         for (const i in objects) {
           objects[i].set({
-            scaleX: 0.38,
-            scaleY: 0.38,
             selectable: false
           });
           objects[i].setCoords();
         }
-        // canvas.setBackgroundColor(backgroundColor, canvas.renderAll.bind(canvas));
-        canvas.setBackgroundImage(imgurl, canvas.renderAll.bind(canvas), {
-          scaleX: 0.335,
-          scaleY: 0.335
-        });
         canvas.renderAll();
       }
     }
-  }, [canvas, imgurl, nowPanel, openPanel]);
+  }, [canvas, fabricCanvasRef, imgurl, nowPanel, openPanel]);
 
   // Brush 패널일때만 drawingMode = true
   useEffect(() => {
@@ -175,11 +150,11 @@ export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanv
     }
   }, [canvas, nowPanel]);
 
-  // 브러쉬 색 변경
+  // 브러쉬 색, 사이즈 변경
   useEffect(() => {
     if (canvas) {
       canvas.freeDrawingBrush.color = nowColor.color;
-      canvas.freeDrawingBrush.width = 19;
+      canvas.freeDrawingBrush.width = nowSize;
       canvas.freeDrawingBrush.shadow = new fabric.Shadow({
         blur: 10,
         offsetX: 0,
@@ -189,23 +164,15 @@ export default function PhotoCardImg({ saveTargetRef, clearCanvasRef, fabricCanv
       });
       canvas.renderAll();
     }
-  }, [canvas, nowColor]);
-
-  // 브러쉬 사이즈 변경
-  useEffect(() => {
-    if (canvas) {
-      canvas.freeDrawingBrush.width = nowSize;
-      canvas.renderAll();
-    }
-  }, [canvas, nowSize]);
+  }, [canvas, nowColor, nowSize]);
 
 
   return (
-    <PhotocardSection>
+    <PhotocardSection ref={saveTargetRef}>
       <Container>
-        <Photocard id='canvas' $open={openPanel} />
+        <Photocard id='canvas' />
       </Container>
-      <PhotocardBackground $open={openPanel} $color={backgroundColor} ref={backgroundImgRef}></PhotocardBackground>
+      <PhotocardBackground $color={backgroundColor} ref={backgroundImgRef}></PhotocardBackground>
     </PhotocardSection>
   );
 }
