@@ -30,7 +30,7 @@ export default function PhotoCardSave({ saveTargetRef }: PhotoCardSaveProps) {
     console.log(saveTargetRef.current);
     if (saveTargetRef.current) {
       try {
-        const canvas = await html2canvas(saveTargetRef.current);
+        const canvas = await html2canvas(saveTargetRef.current, { useCORS: true });
         canvas.toBlob((blob) => {
           if (blob !== null) {
             saveAs(blob, 'redFlavor.png');

@@ -3,20 +3,23 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 
 export interface ChangeColorState {
-  value: string;
+  color: string;
+  outline: string;
 }
 
 const initialState: ChangeColorState = {
-  value: 'red'
+  color: '#ffffff',
+  outline: '#ffbfdf'
 };
 
 export const changeColorSlice = createSlice({
   name: 'changeColor',
   initialState,
   reducers: {
-    changeColor: (state, action: PayloadAction<string>) => {
-      const color = action.payload;
-      state.value = color;
+    changeColor: (state, action: PayloadAction<ChangeColorState>) => {
+      const { color, outline } = action.payload;
+      state.color = color;
+      state.outline = outline;
     }
   }
 });
@@ -24,4 +27,4 @@ export const changeColorSlice = createSlice({
 export const { changeColor } = changeColorSlice.actions;
 
 export default changeColorSlice.reducer;
-export const selectColorValue = (state: RootState) => state.changeColor.value;
+export const selectColorValue = (state: RootState) => state.changeColor;

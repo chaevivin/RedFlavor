@@ -8,7 +8,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { GrPowerReset } from "react-icons/gr";
 
 interface PhotoCardFooterProps {
-  clearCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
+  fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
 const Footer = styled.footer`
@@ -34,15 +34,7 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const clearCanvas = (canvas: fabric.Canvas) => {
-  // const context = canvas.getContext('2d');
-
-  // if (context) {
-  //   context.clearRect(0, 0, canvas.width, canvas.height);
-  // }
-};
-
-export default function PhotoCardFooter({ clearCanvasRef }: PhotoCardFooterProps) {
+export default function PhotoCardFooter({ fabricCanvasRef }: PhotoCardFooterProps) {
   const dispatch = useAppDispatch();
 
   const handlePanelClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,13 +47,12 @@ export default function PhotoCardFooter({ clearCanvasRef }: PhotoCardFooterProps
     dispatch(showExample());
   };
 
-  const handleResetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const canvas = clearCanvasRef.current;
-
+  const handleResetClick = () => {
+    const canvas = fabricCanvasRef.current;
     if (canvas) {
-      clearCanvas(canvas);
+      // background img는 빼고 삭제
+      canvas.remove(...canvas.getObjects().concat());
+      canvas.renderAll();
     }
   };
 
@@ -82,7 +73,7 @@ export default function PhotoCardFooter({ clearCanvasRef }: PhotoCardFooterProps
         </Button>
       </Container>
       <Button
-        onClick={(e) => handleResetClick(e)}
+        onClick={() => handleResetClick()}
       >
         <GrPowerReset color='#ffa7ba' size='1.4rem' />
         초기화

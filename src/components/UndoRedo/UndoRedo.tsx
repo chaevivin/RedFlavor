@@ -1,20 +1,39 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { GrUndo, GrRedo } from "react-icons/gr";
 import styled, { css } from 'styled-components';
 import { fabric } from "fabric";
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectPanelValue } from '../../reducers/choosePanelSlice';
+import GetImgStorage from '../../api/getImgStorage';
+import { useQuery } from '@tanstack/react-query';
 
 interface UndoRedoProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
+const UndoRedoContainer = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+`
+
 const UndoRedoButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   border: none;
-  color: white;
+  color: black;
 `
+
+const UndoRedoIcon = styled.img<{ $redo: boolean }>`
+  width: 1rem;
+  
+  ${p => 
+    p.$redo &&
+      css`
+        transform: scaleX(-1);
+      `
+  }
+`
+
 
 export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
   const [isLocked, setIsLocked] = useState(false);
@@ -23,6 +42,23 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
   const [disabledRedo, setDisabledRedo] = useState(false);
 
   const nowPanel = useAppSelector(selectPanelValue);
+
+  const storage = new GetImgStorage();
+  const { data: undoRedoButtons } = useQuery({
+    queryKey: ['undoRedoButtons'],
+    queryFn: async () => {
+      const result = await storage.getImages('photocard/photocardDetail/undoRedo');
+      return result;
+    },
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60
+  });
+
+  useEffect(() => {
+    if (undoRedoButtons) {
+      storage.preloadImgs(undoRedoButtons);
+    }
+  }, [undoRedoButtons]);
 
   const saveHistory = () => {
     if (!isLocked) {
@@ -33,18 +69,17 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
 
   // panel이 brush일때만 history 저장
   useEffect(() => {
+    console.log(fabricCanvasRef.current)
     if (fabricCanvasRef.current) {
-      if (nowPanel === 'brush') {
-        const canvas = fabricCanvasRef.current;
-        canvas.on('object:added', saveHistory);
-        canvas.on('object:modified', saveHistory);
-        canvas.on('object:removed', saveHistory);
-      }
+      const canvas = fabricCanvasRef.current;
+      canvas.on('object:added', saveHistory);
+      canvas.on('object:modified', saveHistory);
+      canvas.on('object:removed', saveHistory);
     }
   }, [fabricCanvasRef]);
 
   // Undo 클릭하면 canvas._object에 있는 마지막 객체 setHistory에 저장
-  const handleUndoClick = useCallback(() => {
+  const handleUndoClick = () => {
     if (fabricCanvasRef.current) {
       const canvas = fabricCanvasRef.current;
       if (canvas._objects.length > 0){
@@ -58,10 +93,10 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
         canvas.renderAll();
       }
     }
-  }, [fabricCanvasRef]);
+  };
 
   // Redo 클릭하면 history state의 마지막 canvas에 추가
-  const handleRedoClick = useCallback(() => {
+  const handleRedoClick = () => {
     if (fabricCanvasRef.current && history) {
       const canvas = fabricCanvasRef.current;
       if (history.length > 0) {
@@ -71,7 +106,7 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
         setHistory(newHistory);
       }
     }
-  }, [fabricCanvasRef, history]);
+  };
 
   useEffect(() => {
     if (fabricCanvasRef.current) {
@@ -85,24 +120,22 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
   }, [fabricCanvasRef, history]);
 
   return (
-    <div>
-      <UndoRedoButton
-        onClick={() => handleUndoClick()}
-      >
-        <GrUndo  
-          stroke={disabledUndo ? 'gray' : 'pink'}
-          strokeWidth='1.5rem'
-        />
-      </UndoRedoButton>
-      <UndoRedoButton
-        onClick={() => handleRedoClick()}
-      >
-        <GrRedo 
-          stroke={disabledRedo ? 'gray' : 'pink'}
-          strokeWidth='1.5rem'
-        />
-      </UndoRedoButton>
-    </div>
+    <>
+      {undoRedoButtons &&
+        <UndoRedoContainer>
+          <UndoRedoButton
+            onClick={() => handleUndoClick()}
+          >
+            <UndoRedoIcon src={disabledUndo ? undoRedoButtons[1] : undoRedoButtons[0]} $redo={false} />
+          </UndoRedoButton>
+          <UndoRedoButton
+            onClick={() => handleRedoClick()}
+          >
+            <UndoRedoIcon src={disabledRedo ? undoRedoButtons[1] : undoRedoButtons[0]} $redo={true} />
+          </UndoRedoButton>
+        </UndoRedoContainer>
+      }
+    </>
   );
 }
 

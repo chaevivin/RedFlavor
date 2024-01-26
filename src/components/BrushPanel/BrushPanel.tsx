@@ -8,19 +8,26 @@ interface BrushPanelProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
+const BrushSection= styled.section`
+  height: 150px;
+  width: 270px;
+`
+
 const Container = styled.div`
   display: flex;
+  justify-content: space-evenly;
+  margin: 0.5rem 0 0.9rem 0;
 `
 
 export default function BrushPanel({ fabricCanvasRef }: BrushPanelProps) {
   return (
-    <section> 
+    <BrushSection> 
       <Container>
         <UndoRedo fabricCanvasRef={fabricCanvasRef} />
         <BrushSize />
       </Container>
       <BrushType />
-    </section>
+    </BrushSection>
   );
 }
 
