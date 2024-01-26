@@ -3,6 +3,7 @@ import GetImgStorage from '../../api/getImgStorage';
 import { useQueries } from '@tanstack/react-query';
 import styled, { css } from 'styled-components';
 import { fabric } from 'fabric';
+import { FaCheck } from "react-icons/fa6";
 
 interface FramePanelProps {
   currentPage: number;
@@ -11,7 +12,7 @@ interface FramePanelProps {
 }
 
 // 첫 번째 index 값만 true -> 첫 번째 default
-const backClickedValue: boolean[] = Array.from({ length: 7 }, (_, index) => index === 0);
+const backClickedValue: boolean[] = Array.from({ length: 7 }, () => false);
 const backgroundColor = ['#ffa0d4', '#fcf199', '#99c8fc', '#aafc99', '#cd99fc'];
 
 const FrameContainer = styled.ul`
@@ -31,6 +32,7 @@ const FrameButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   cursor: pointer;
   width: 50px;
   height: 50px;
+  position: relative;
 
   ${p => 
     p.$clicked &&
@@ -41,9 +43,26 @@ const FrameButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   }
 `
 
+const FrameCheck = styled.div<{ $clicked: boolean }>`
+  ${p => 
+    p.$clicked &&
+      css`
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        color: #d7899f;
+        font-size: 1.3rem;
+      `
+  }
+`
+
 export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImgRef }: FramePanelProps) {
   const [clicked, setClicked] = useState<boolean[]>(backClickedValue);
-
+  
   const storage = new GetImgStorage();
   const queryResults = useQueries({
     queries: [
@@ -80,45 +99,11 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
   const endIndex = startIndex + 8;
   const currentImages = frameIcon?.slice(startIndex, endIndex);
 
-  // function deleteObject(eventData: MouseEvent, transform: fabric.Transform) {
-  //   const canvas = transform.target.canvas;
-  //   canvas?.remove(transform.target);
-  //   canvas?.requestRenderAll();
-  //   return true;
-  // }
-
   // frame 버튼 누르면 배경 바뀌거나 프레임 
   const handleAddClick = (index: number) => {
     setClicked((prev) => prev.map((v, i) => (i === index ? !v : false)));
 
     if (fabricCanvasRef.current && backgroundImgRef.current && frameBackground) {
-      // frame 추가
-      // if (index === 0 || index === 1) {    
-      //   try {
-      //     const url = frameBackground[index + 2];
-      //     const canvas = fabricCanvasRef.current;
-      //     fabric.Image.fromURL(url, (img) => {
-      //       img.set({ left: 0, top: 0, scaleX: 0.335, scaleY: 0.335, selectable: false });
-      //       newImg.cornerColor = 'blue';
-      //       newImg.cornerSize = 10;
-      //       newImg.cornerStyle = 'circle';
-      //       newImg.controls.deleteControl = new fabric.Control({
-      //         x: 0.5,
-      //         y: -0.5,
-      //         offsetY: -16,
-      //         offsetX: 16,
-      //         cursorStyle: 'pointer',
-      //         mouseUpHandler: deleteObject,
-      //       });
-      //       setSelectedImage((prev) => [...prev, img]);
-      //       canvas?.add(img);
-      //       canvas?.renderAll();
-      //     });
-      //   } catch (error) {
-      //     console.log('frame panel frame error ' + error);
-      //   }
-      // }
-
       // backgroundImg 변경
       if (index === 0 || index === 1) {    
         try {
@@ -148,13 +133,16 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
       {frameIcon &&
         <FrameContainer>
           {currentImages?.map((url, index) => (
-            <li key={index}>
+            <li key={index} style={{ position: 'relative' }}>
               <FrameButton 
                 $imgurl={url}
                 onClick={() => handleAddClick(index)}
                 $clicked={clicked[index]}
               >
               </FrameButton>
+              <FrameCheck $clicked={clicked[index]}>
+                {clicked[index] && <FaCheck />}
+              </FrameCheck>
             </li>
           ))}
         </FrameContainer>

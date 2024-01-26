@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 const ButtonSection = styled.section`
   display: flex;
   justify-content: space-between;
-  width: 321px;
+  width: 350px;
 `
 
 const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
