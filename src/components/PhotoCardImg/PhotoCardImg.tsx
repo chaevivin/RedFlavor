@@ -17,7 +17,7 @@ interface PhotoCardImgProps {
 }
 
 const PhotocardSection = styled.section`
-  margin-bottom: 0.7rem;
+  margin-bottom: 2.5rem;
   position: relative;
 `
 

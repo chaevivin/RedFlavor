@@ -10,8 +10,8 @@ const HeartBox = styled.div<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(100% / 6.5);
-  height: calc(100% / 13);
+  width: calc(391px / 3);
+  height: calc(86px / 3);
   position: absolute;
   top: 8.8%;
   left: 15%;
@@ -22,7 +22,7 @@ const HeartBox = styled.div<{ $imgurl: string | undefined }>`
 `
 
 const HeartImg = styled.img`
-  width: calc(100% / 6.7);
+  width: 20px;
   margin: 0.1rem;
 `
 

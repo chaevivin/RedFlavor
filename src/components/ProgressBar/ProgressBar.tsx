@@ -67,7 +67,7 @@ export default function ProgressBar() {
   // 1초마다 프로그레스바 이동
   useEffect(() => {
     if (music) {
-      const calculatedProgress = (currentTime / 180) * 100;
+      const calculatedProgress = (currentTime / 180) * 87;
       setProgress(calculatedProgress);
     }
   }, [currentTime, music]);

@@ -13,7 +13,7 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
 `
 
 const Logo = styled.img`
-  width: 100%;
+  width: 213px;
   margin-bottom: 1.6rem;
 `
 

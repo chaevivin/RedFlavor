@@ -12,10 +12,10 @@ const BackButton = styled.button<{ $buttoncolor: string }>`
   color: ${p => p.$buttoncolor};
   border: none;
   background: none;
-  font-size: 1.3rem;
-  /* position: absolute;
-  top: 8%;
-  left: 7%; */
+  font-size: 1.5rem;
+  position: absolute;
+  top: 9%;
+  left: 5%;
   padding: 0;
 `
 

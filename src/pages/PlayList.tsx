@@ -6,7 +6,7 @@ import { nowValue } from '../reducers/nowPlayingSlice';
 import LikeMusic from '../components/LikeMusic/LikeMusic';
 import Frequency from '../components/Frequency/Frequency';
 import ProgressBar from '../components/ProgressBar/ProgressBar';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Background = styled.section`
   height: 100vh;
@@ -17,12 +17,19 @@ const Background = styled.section`
   flex-direction: column;
 `
 
-const Container = styled.div`
+const Container = styled.div<{ $top: boolean }>`
   display: flex;
   justify-content: space-between;
+  align-items: end;
   width: calc(1088px / 3.5);
   margin-bottom: 0.6rem;
-  align-items: end;
+
+  ${p =>
+    p.$top &&
+      css`
+        justify-content: flex-end;
+      `
+  }
 `
 
 const ContainerColumn = styled.div`
@@ -49,11 +56,11 @@ export default function PlayList() {
 
   return (
     <Background>
-      <Container>
-        <Back navigate={navigate} color='#7fb672' />
+      <Back navigate={navigate} color='#7fb672' />
+      <Container $top={true}>
         <TrackNumber>♬TRACK { nowPlaying < 10 ? `0${nowPlaying}` : nowPlaying }</TrackNumber>
       </Container>
-      <Container>
+      <Container $top={false}>
         <ContainerColumn>
           <FrequencyContainer>
           <Frequency start={0} color='#9be08e' /><Frequency start={1} color='#ffa77a' /><Frequency start={2} color='#ff96ad' />

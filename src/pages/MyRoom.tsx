@@ -51,8 +51,8 @@ const BackButton = styled.div<{ $imgurl: string | undefined }>`
   width: calc(100% / 25);
   height: calc(100% / 14);
   position: absolute;
-  top: 7%;
-  left: 3%;
+  top: 9%;
+  left: 5%;
   z-index: -1;
 `
 
@@ -63,8 +63,8 @@ const MenuButton = styled.button<{ $imgurl: string | undefined }>`
   cursor: pointer;
   background-color: transparent;
   border: none;
-  width: calc(100% / 13);
-  height: calc(100% / 12);
+  width: calc(206px / 3);
+  height: calc(103px / 3);
   position: absolute;
   right: 0;
   top: 0;

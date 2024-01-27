@@ -59,6 +59,7 @@ const InnerContainer = styled.div`
 const ButtonContainer = styled.div`
   display: grid; 
   grid-template-columns: auto auto;
+  grid-gap: 3px;
 `
 
 const BottomLogo = styled.img`
