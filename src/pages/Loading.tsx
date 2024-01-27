@@ -79,8 +79,23 @@ const BookIcon = styled.img`
   margin: 1rem;
 `
 
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const LoadingImg = styled.img`
-  width: calc(100% / 2.3);
+  width: calc(100% / 3.5);
+  margin-right: 0.8rem;
+`
+
+const LoadingDot = styled.img<{ $active: any; $second: string }>`
+  width: calc(100% / 30);
+  margin-right: 0.5rem;
+  ${(p) => p.$active && css`
+    animation: ${upIcon} 1s linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) ${p.$second};
+  `}
 `
 
 export default function Loading() {
@@ -115,13 +130,18 @@ export default function Loading() {
     <>
       {loading &&
         <Background>
-          <WaterMelonIcon src={loading[1]} $active />
-          <PineappleIcon src={loading[2]} $active />
-          <OrangeIcon src={loading[3]} $active />
-          <KiwiIcon src={loading[4]} $active />
-          <GrapeIcon src={loading[5]} $active />
+          <WaterMelonIcon src={loading[2]} $active />
+          <PineappleIcon src={loading[3]} $active />
+          <OrangeIcon src={loading[4]} $active />
+          <KiwiIcon src={loading[5]} $active />
+          <GrapeIcon src={loading[6]} $active />
           <BookIcon src={loading[0]} />
-          <LoadingImg src={loading[6]} />
+          <LoadingContainer>
+            <LoadingImg src={loading[7]} />
+            <LoadingDot src={loading[1]} $active $second={'2s'} />
+            <LoadingDot src={loading[1]} $active $second={'3s'} />
+            <LoadingDot src={loading[1]} $active $second={'4s'} />
+          </LoadingContainer>
         </Background>
       }
     </>
