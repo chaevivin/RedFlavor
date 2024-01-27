@@ -15,11 +15,14 @@ export const heartSlice = createSlice({
   reducers: {
     heartGauge: (state) => {
       state.value < 5 ? state.value += 1 : state.value = 5;
+    },
+    heartReset: (state) => {
+      state.value = 0;
     }
   }
 });
 
-export const { heartGauge } = heartSlice.actions;
+export const { heartGauge, heartReset } = heartSlice.actions;
 
 export default heartSlice.reducer;
 export const heartValue = (state: RootState) => state.heart.value;

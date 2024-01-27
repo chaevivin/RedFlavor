@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useAppSelector } from '../../hook/reduxHook';
-import { heartValue } from '../../reducers/heartSlice';
+import { useAppDispatch, useAppSelector } from '../../hook/reduxHook';
+import { heartGauge, heartReset, heartValue } from '../../reducers/heartSlice';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
+import { memberValue } from '../../reducers/memberSlice';
 
 const HeartBox = styled.div<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
@@ -28,6 +29,8 @@ const HeartImg = styled.img`
 export default function HeartBar() {
   const heartNum = useAppSelector(heartValue);
   const heartRefs = useRef<HTMLImageElement[]>([]);
+  const memberUpdated = useAppSelector(memberValue);
+  const dispatch = useAppDispatch();
 
   const storage = new GetImgStorage();
   const { data: myroomHeart } = useQuery({
@@ -55,6 +58,16 @@ export default function HeartBar() {
       });
     }
   }, [heartNum, myroomHeart]);
+
+  // modal에서 멤버 변경하면 heart state = 0
+  useEffect(() => {
+    if (myroomHeart) {
+      heartRefs.current.forEach((heartRef) => {
+        heartRef.src = myroomHeart[0];
+      });
+      dispatch(heartReset());
+    }
+  }, [memberUpdated]);
 
   return (
     <>
