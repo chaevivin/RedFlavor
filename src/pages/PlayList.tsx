@@ -10,19 +10,26 @@ import styled, { css } from 'styled-components';
 
 const Background = styled.section`
   height: 100vh;
-  background-color: black;
+  background-color: #282828;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `
 
+const AllContainer = styled.div`
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const Container = styled.div<{ $top: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  width: calc(1088px / 3.5);
-  margin-bottom: 0.6rem;
+  width: calc(1088px / 3.7);
+  margin-bottom: 1rem;
 
   ${p =>
     p.$top &&
@@ -40,8 +47,12 @@ const ContainerColumn = styled.div`
 const TrackNumber = styled.p`
   margin: 0;
   color: #ffffff;
-  text-shadow: -1px 0 #3ebf6f, 0 1px #3ebf6f, 1px 0 #3ebf6f, 0 -1px #3ebf6f;
-  font-size: 1.3rem;
+  text-shadow: -2px 0 #3ebf6f, 0 2px #3ebf6f, 2px 0 #3ebf6f, 0 -2px #3ebf6f;
+  font-size: 2rem;
+`
+
+const TrackNote = styled.span`
+  font-size: 1.5rem;
 `
 
 const FrequencyContainer = styled.div`
@@ -57,22 +68,24 @@ export default function PlayList() {
   return (
     <Background>
       <Back navigate={navigate} color='#7fb672' />
-      <Container $top={true}>
-        <TrackNumber>♬TRACK { nowPlaying < 10 ? `0${nowPlaying}` : nowPlaying }</TrackNumber>
-      </Container>
-      <Container $top={false}>
-        <ContainerColumn>
-          <FrequencyContainer>
-          <Frequency start={0} color='#9be08e' /><Frequency start={1} color='#ffa77a' /><Frequency start={2} color='#ff96ad' />
-            <Frequency start={3} color='#ffeb87' /><Frequency start={4} color='#b4e4ff' /><Frequency start={5} color='#9be08e' />
-            <Frequency start={6} color='#ffa77a' /><Frequency start={7} color='#ff96ad' /><Frequency start={8} color='#ffeb87' />
-            <Frequency start={9} color='#b4e4ff' />
-          </FrequencyContainer>
-          <ProgressBar />
-        </ContainerColumn>
-        <LikeMusic />
-      </Container>
-      <TrackList />
+      <AllContainer>
+        <Container $top={true}>
+          <TrackNumber><TrackNote>♬</TrackNote>TRACK { nowPlaying < 10 ? `0${nowPlaying}` : nowPlaying }</TrackNumber>
+        </Container>
+        <Container $top={false}>
+          <ContainerColumn>
+            <FrequencyContainer>
+              <Frequency start={0} color='#9be08e' /><Frequency start={1} color='#ffa77a' /><Frequency start={2} color='#ff96ad' />
+              <Frequency start={3} color='#ffeb87' /><Frequency start={4} color='#b4e4ff' /><Frequency start={5} color='#9be08e' />
+              <Frequency start={6} color='#ffa77a' /><Frequency start={7} color='#ff96ad' /><Frequency start={8} color='#ffeb87' />
+              <Frequency start={9} color='#b4e4ff' />
+            </FrequencyContainer>
+            <ProgressBar />
+          </ContainerColumn>
+          <LikeMusic />
+        </Container>
+        <TrackList />
+      </AllContainer>
     </Background>
   );
 }

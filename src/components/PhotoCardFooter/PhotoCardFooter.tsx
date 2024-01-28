@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hook/reduxHook';
 import { showExample } from '../../reducers/exampleSlice';
 import { openPanel } from '../../reducers/panelSlice';
 import styled from 'styled-components';
-import { RiEmojiStickerLine } from "react-icons/ri";
+import { PiSmileySticker } from "react-icons/pi";
 import { IoSearchOutline } from "react-icons/io5";
 import { GrPowerReset } from "react-icons/gr";
 
@@ -15,6 +15,7 @@ const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
   width: calc(1081px / 3);
+  margin-top: 2.5rem;
 `
 
 const Container = styled.div`
@@ -30,7 +31,8 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 2rem;
+  font-size: 1.1rem;
+  line-height: 2.5rem;
   cursor: pointer;
 `
 
@@ -62,20 +64,21 @@ export default function PhotoCardFooter({ fabricCanvasRef }: PhotoCardFooterProp
         <Button
           onClick={(e) => handlePanelClick(e)}
         >
-          <RiEmojiStickerLine color='#ffa7ba' size='1.4rem'/>
+          
+          <PiSmileySticker color='#ffa7ba' size='1.5rem' />
           꾸미기
         </Button>
         <Button
           onClick={(e) => handleExampleClick(e)}
         >
-          <IoSearchOutline color='#ffa7ba' size='1.4rem' />
+          <IoSearchOutline color='#ffa7ba' size='1.5rem' />
           예시
         </Button>
       </Container>
       <Button
         onClick={() => handleResetClick()}
       >
-        <GrPowerReset color='#ffa7ba' size='1.4rem' />
+        <GrPowerReset color='#ffa7ba' size='1.6rem' />
         초기화
       </Button>
     </Footer>

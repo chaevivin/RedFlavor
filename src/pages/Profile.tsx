@@ -51,7 +51,7 @@ const Title = styled.img`
 
 const InnerContainer = styled.div`
   position: absolute;
-  top: 50%;
+  top: 51%;
   left: 50%;
   transform: translate(-50%, -50%);
 `
@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
 const BottomLogo = styled.img`
   width: calc(373px / 3);
   position: absolute;
-  bottom: 5%;
+  bottom: 20px;
   left: 50%;
   transform: translate(-50%, -50%);
 `

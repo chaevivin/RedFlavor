@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Background = styled.section<{ $imgurl: string | undefined }>`
   height: 100vh;
@@ -13,15 +13,22 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
 `
 
 const Logo = styled.img`
-  width: 213px;
-  margin-bottom: 1.6rem;
+  width: 247px;
+  margin-bottom: 1rem;
 `
 
 const Container = styled.div`
 	position: absolute;
-  top: 50%;
+  top: 27%;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -50%);
+`
+
+const Buttons = styled.div`
+  position: absolute;
+  top: 64%;
+  left: 52%;
+  transform: translate(-50%, -47%);
 `
 
 const ButtonContainer = styled.div`
@@ -36,7 +43,7 @@ const CheckBox = styled.img`
   left: -2.7rem;
 `
 
-const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined }>`
+const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined; $playlist: boolean }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
@@ -48,8 +55,15 @@ const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined }>`
   align-items: center;
   color: white;
   text-decoration: none;
-  margin: 1.4rem 0;
+  margin: 1.2rem 0;
   font-size: 1.5rem;
+
+  ${p =>
+    p.$playlist &&
+      css`
+        font-size: 1.6rem;
+      `
+  }
 `)
 
 export default function Main() {
@@ -76,23 +90,25 @@ export default function Main() {
         <Background $imgurl={mainList[0]}>
           <Container>
             <Logo src={mainList[7]}></Logo>
-            <ButtonContainer>
-              <CheckBox src={mainList[6]}></CheckBox>
-              <LinkButton $imgurl={mainList[2]} to='/profile'>프로필 보기</LinkButton>
-            </ButtonContainer>
-            <ButtonContainer>
-              <CheckBox src={mainList[6]}></CheckBox>
-              <LinkButton $imgurl={mainList[3]} to='/photocard'>포토카드 꾸미기</LinkButton>
-            </ButtonContainer>
-            <ButtonContainer>
-              <CheckBox src={mainList[6]}></CheckBox>
-              <LinkButton $imgurl={mainList[4]} to='/loading'>마이룸</LinkButton>
-            </ButtonContainer>
-            <ButtonContainer>
-              <CheckBox src={mainList[6]}></CheckBox>
-              <LinkButton $imgurl={mainList[5]} to='/playlist'>playlist</LinkButton>
-            </ButtonContainer>
           </Container>
+          <Buttons>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[2]} $playlist={false} to='/profile'>프로필 보기</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[3]} $playlist={false} to='/photocard'>포토카드 꾸미기</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[4]} $playlist={false} to='/loading'>마이룸</LinkButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <CheckBox src={mainList[6]}></CheckBox>
+              <LinkButton $imgurl={mainList[5]} $playlist={true} to='/playlist'>playlist</LinkButton>
+            </ButtonContainer>
+          </Buttons>
         </Background>
       }
     </>

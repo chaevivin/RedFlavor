@@ -69,7 +69,6 @@ export default function UndoRedo({ fabricCanvasRef }: UndoRedoProps) {
 
   // panel이 brush일때만 history 저장
   useEffect(() => {
-    console.log(fabricCanvasRef.current)
     if (fabricCanvasRef.current) {
       const canvas = fabricCanvasRef.current;
       canvas.on('object:added', saveHistory);

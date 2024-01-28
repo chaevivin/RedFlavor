@@ -31,21 +31,28 @@ const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
   width: calc(1136px / 3);
   height: calc(2040px / 3);
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 94px;
+  left: 5px;
   text-align: center;
+`
+
+const TitleHeart = styled.span<{ $color: string }>`
+  font-size: 0.9rem;
+  color: ${p => p.$color};
+  text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
+  margin: 5.3rem 0 1rem 0;
 `
 
 const Title = styled.p<{ $color: string }>`
   font-size: 1.25rem;
   color: ${p => p.$color};
-  text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
-  margin: 5.3rem 0 1rem 0;     /* 요소 가운데 정렬 직접하려면 margin-left 값 조정하기 */
+  text-shadow: -1.3px 0 #ffffff, 0 1.3px #ffffff, 1.3px 0 #ffffff, 0 -1.3px #ffffff;
+  margin: 85px 0 1rem 0;
 `
 
 const ProfileImg = styled.img`
   width: calc(706px / 3);
+  margin-bottom: 0.4rem;
 `
 
 const DetailContainer = styled.div`
@@ -54,6 +61,7 @@ const DetailContainer = styled.div`
 `
 
 const ItemTitle = styled.p`
+  font-family: '소야쌀9';
   font-size: 1.3rem;
   margin: 0;
   color: #ffffff;
@@ -137,7 +145,11 @@ export default function ProfileDetail() {
           <Background $imgurl={detailList[1]}>
             <Back navigate={navigate} color={profile.backColor} />
             <InnerBackground $imgurl={detailList[3]}>
-              <Title $color={profile.color}>{profile.title}</Title>
+              <Title $color={profile.color}>
+                <TitleHeart $color={profile.color}>♥♥</TitleHeart>
+                  {profile.title}
+                <TitleHeart $color={profile.color}>♥♥</TitleHeart>
+              </Title>
               <ProfileImg src={detailList[0]}></ProfileImg>
               <DetailContainer>
                 <SymbolContainer>

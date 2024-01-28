@@ -19,7 +19,7 @@ export default function Intro() {
 
   useEffect(() => {
     const preloadImages = () => {
-      for (let i = 1; i <= 2; i++) {
+      for (let i = 1; i <= 3; i++) {
         const image = new Image();
         image.src = `/img/intro_${i}.jpg`;
       }
@@ -38,7 +38,7 @@ export default function Intro() {
       });
     }, 1500);
   
-    if (count === 3) {       
+    if (count === 4) {       
       clearInterval(timer);
       navigate("main");
     }

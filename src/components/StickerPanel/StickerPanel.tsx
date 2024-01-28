@@ -23,6 +23,7 @@ const StickerContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
+  margin-bottom: 10px;
 `
 
 const StickerButton = styled.button<{ $imgurl: string | undefined; $background: boolean }>`

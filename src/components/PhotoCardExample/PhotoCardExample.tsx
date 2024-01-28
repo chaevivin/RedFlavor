@@ -13,13 +13,14 @@ const Background = styled.section`
 `
 
 const Container = styled.div`
+  width: 28%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `
 

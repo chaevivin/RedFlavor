@@ -9,8 +9,12 @@ import { useQuery } from '@tanstack/react-query';
 
 const ButtonSection = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 350px;
+`
+
+const ButtonContainer = styled.div`
+  margin-right: 2.5rem;
 `
 
 const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
@@ -33,7 +37,7 @@ const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
     p.$clicked &&
     css`
       color: #f787a7;
-      text-shadow: -1.5px 0 #ffeff2, 0 1.5px #ffeff2, 1.5px 0 #ffeff2, 0 -1.5px #ffeff2;
+      text-shadow: -1px 0 #ffeff2, 0 1px #ffeff2, 1px 0 #ffeff2, 0 -1px #ffeff2;
     `
   }
 `
@@ -97,7 +101,7 @@ export default function PanelButtons() {
     <>
       {panelButtons &&
         <ButtonSection>
-          <div>
+          <ButtonContainer>
             <PanelButton
               onClick={(e) => handleMemberClick(e)}
               $imgurl={panel === 'member' ? panelButtons[1] : panelButtons[0]}
@@ -126,11 +130,11 @@ export default function PanelButtons() {
             >
               브러쉬
             </PanelButton>
-          </div>
+          </ButtonContainer>
           <CompleteButton
             onClick={(e) => handleCompleteClick(e)}
           >
-            <FaCheck stroke='white' strokeWidth='1.5rem' />
+            <FaCheck stroke='white' strokeWidth='1.7rem' />
           </CompleteButton>
         </ButtonSection>
       }

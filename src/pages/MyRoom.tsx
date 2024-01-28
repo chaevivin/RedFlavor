@@ -51,8 +51,8 @@ const BackButton = styled.div<{ $imgurl: string | undefined }>`
   width: calc(100% / 25);
   height: calc(100% / 14);
   position: absolute;
-  top: 9%;
-  left: 5%;
+  top: 1%;
+  left: 4%;
   z-index: -1;
 `
 
@@ -70,6 +70,12 @@ const MenuButton = styled.button<{ $imgurl: string | undefined }>`
   top: 0;
   padding: 0;
   z-index: -1;
+`
+
+const MenuContainer = styled.div`
+  position: absolute;
+  top: 12%;
+  right: 55%;
 `
 
 export default function MyRoom() {
@@ -115,7 +121,9 @@ export default function MyRoom() {
               onClick={(e) => handleMenuClick(e)}
               $imgurl={myroomBackground[2]}
             >
-              <IoMenu color='#46101d' size='1.5rem' />
+              <MenuContainer>
+                <IoMenu color='#46101d' size='1.5rem' />
+              </MenuContainer>
             </MenuButton>
           </ModalBackground>
           {modalState ? <MyRoomModal /> : ''}

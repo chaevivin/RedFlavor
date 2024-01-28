@@ -24,7 +24,7 @@ const Background = styled.section<{ $open: boolean }>`
   ${(p) =>
     p.$open &&
     css`
-      background-color: black;
+      background-color: #1e1e20;
     `
   }
 `
@@ -32,13 +32,13 @@ const Background = styled.section<{ $open: boolean }>`
 const Container = styled.div`
   display: flex;
   width: calc(1081px / 3);
-  justify-content: flex-end;
+  justify-content: space-evenly;
   margin-bottom: 2rem;
 `
 
 const TitleImg = styled.img`
-  width: calc(465px / 3);
-  margin-right: 2.6rem;
+  width: 163px;
+  margin: 0 1rem 0 5rem;
 `
 
 export default function PhotoCard() {

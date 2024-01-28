@@ -17,6 +17,7 @@ interface PhotoCardImgProps {
 }
 
 const PhotocardSection = styled.section`
+  margin-top: 0.5rem;
   margin-bottom: 2.5rem;
   position: relative;
 `
@@ -115,38 +116,22 @@ export default function PhotoCardImg({ saveTargetRef, fabricCanvasRef, backgroun
         scaleY: 0.335,
         crossOrigin: 'anonymous'
       });
-      if (openPanel && nowPanel === 'sticker') {
-        const objects = canvas.getObjects();
-        for (const i in objects) {
-          objects[i].selectable = true;
-          objects[i].setCoords();
-        }
-        canvas.renderAll();
-      } else {
-        const objects = canvas.getObjects();
-        for (const i in objects) {
-          objects[i].set({
-            selectable: false
-          });
-          objects[i].setCoords();
-        }
-        canvas.renderAll();
+
+      const objects = canvas.getObjects();
+      for (const obj of objects) {
+        obj.selectable = openPanel && nowPanel === 'sticker';
+        obj.setCoords();
       }
+      canvas.renderAll();
     }
   }, [canvas, fabricCanvasRef, imgurl, nowPanel, openPanel]);
 
   // Brush 패널일때만 drawingMode = true
   useEffect(() => {
     if (canvas) {
-      if (nowPanel === 'brush') {
-        canvas.isDrawingMode = true;
-        canvas.renderAll();
-        setCanvas(canvas);
-      } else {
-        canvas.isDrawingMode = false;
-        canvas.renderAll();
-        setCanvas(canvas);
-      }
+      canvas.isDrawingMode = nowPanel === 'brush';
+      canvas.renderAll();
+      setCanvas(canvas);
     }
   }, [canvas, nowPanel]);
 

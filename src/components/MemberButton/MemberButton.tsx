@@ -10,6 +10,10 @@ interface MemberButtonProps {
 }
 
 const MemberProfileButton = styled.button`
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column;
+  align-items: center;
   cursor: pointer;
   width: 130px;
   background: none;
@@ -18,6 +22,7 @@ const MemberProfileButton = styled.button`
 
 const Name = styled.img`
   width: calc(154px / 3);
+  margin-bottom: 0.3rem;
 `
 
 const Character = styled.img<{ $imgwidth: number }>`

@@ -11,7 +11,7 @@ interface stateType {
   [x: string]: any;
 }
 
-const brushClickedValue: boolean[] = Array.from({ length: 10 }, (_, index) => index === 0);
+const brushClickedValue: boolean[] = Array.from({ length: 10 }, () => false);
 
 const BrushContainer = styled.ul`
   list-style: none;

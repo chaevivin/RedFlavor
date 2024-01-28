@@ -21,6 +21,7 @@ const FrameContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
+  margin-bottom: 10px;
 `
 
 const FrameButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`

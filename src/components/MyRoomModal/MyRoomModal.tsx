@@ -39,8 +39,8 @@ const MemberContainer = styled.div`
   align-items: center;
   height: 75%;
   position: absolute;
-  left: 54%;
-  top: 14%;
+  left: 53%;
+  top: 15%;
 `
 
 const MemberButton = styled.button`

@@ -66,7 +66,6 @@ export default function PhotoCardSave({ saveTargetRef }: PhotoCardSaveProps) {
           onClick={handleSaveImg}
           $imgurl={saveButton[0]}
         >
-          저장
         </SaveButton>
       }
     </>

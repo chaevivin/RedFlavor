@@ -25,7 +25,7 @@ const Background = styled.div<{ $imgurl: string | undefined}>`
 const ListContainer = styled.ul`
   margin: 0;
   position: absolute;
-  top: 10%;
+  top: 9.5%;
   left: 15.5%;
   font-size: 1rem;
   list-style: none;
@@ -43,7 +43,7 @@ const List = styled.li<{ $nowPlaying: number; $trackNum: number }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.3rem 0;
+  margin: 0.5rem 0;
   padding: 0.1rem 0.4rem;
 
   ${(p) => 

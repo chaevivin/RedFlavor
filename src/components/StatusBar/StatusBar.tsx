@@ -10,21 +10,22 @@ const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
   width: calc(391px / 3);
   height: calc(86px / 3);
   position: absolute;
-  top: 8.9%;
-  right: 16%;
+  top: 8.8%;
+  right: 16.1%;
   z-index: -1;
 `
 
 const StatusText = styled.input`
   width: 86%;
   position: absolute;
-  top: 22%;
+  top: 25%;
   left: 6%;
   right: 0;
   font-size: 0.7rem;
   background: transparent;
   border: none;
   font-family: '소야꼬마9';
+  color: #451821;
 `
 
 export default function StatusBar() {
