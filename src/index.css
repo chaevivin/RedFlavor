@@ -3,9 +3,15 @@
   src: url("./font/소야꼬마9.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "소야쌀9";
+  src: url("./font/소야쌀9.ttf") format("truetype");
+}
+
+
 body {
   margin: 0;
-  font-family: "소야꼬마9";
+  font-family: "소야꼬마9", "소야쌀9";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
