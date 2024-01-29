@@ -11,11 +11,6 @@ interface stateType {
   [x: string]: any;
 }
 
-// chrome violation: setTimeout handler took ...ms 해결
-// 핸들러가 await 메서드를 가진 비동기 함수이면 메시지 표시 X
-const sleep = (s: number) =>
-  new Promise((p) => setTimeout(p, (s * 100) | 0));
-
 const Background = styled.section<{ $imgurl: string | undefined }>`
   height: 100vh;
   background-image: url(${p => p.$imgurl});
@@ -28,30 +23,30 @@ const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(1136px / 3);
-  height: calc(2040px / 3);
+  width: calc(1136px / 3.5);
+  height: calc(2040px / 3.5);
   position: absolute;
-  top: 94px;
-  left: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
 `
 
 const TitleHeart = styled.span<{ $color: string }>`
-  font-size: 0.9rem;
-  color: ${p => p.$color};
+  font-size: 0.8rem;
+  color: #dd85ad;
   text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
-  margin: 5.3rem 0 1rem 0;
 `
 
 const Title = styled.p<{ $color: string }>`
-  font-size: 1.25rem;
-  color: ${p => p.$color};
+  font-size: 1rem;
+  color: #dd85ad;
   text-shadow: -1.3px 0 #ffffff, 0 1.3px #ffffff, 1.3px 0 #ffffff, 0 -1.3px #ffffff;
-  margin: 85px 0 1rem 0;
+  margin: 4.6rem 0 1rem 0;
 `
 
 const ProfileImg = styled.img`
-  width: calc(706px / 3);
+  width: calc(706px / 3.5);
   margin-bottom: 0.4rem;
 `
 
@@ -62,7 +57,7 @@ const DetailContainer = styled.div`
 
 const ItemTitle = styled.p`
   font-family: '소야쌀9';
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin: 0;
   color: #ffffff;
   text-shadow: -1.5px 0 #5d404f, 0 1.5px #5d404f, 1.5px 0 #5d404f, 0 -1.5px #5d404f;
@@ -71,12 +66,12 @@ const ItemTitle = styled.p`
 const SymbolContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 `
 
 const SymbolImg = styled.img`
-  width: calc(168px / 3);
-  margin-bottom: 0.6rem;
+  width: calc(168px / 3.5);
+  margin-bottom: 0.4rem;
 `
 
 const ProfileContainer = styled.div`
@@ -88,9 +83,9 @@ const ProfileDescription = styled.div<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(509px / 3);
-  height: calc(362px / 3);
-  line-height: 1.3rem;
+  width: calc(509px / 3.5);
+  height: calc(362px / 3.5);
+  line-height: 1.2rem;
 `
 
 const Description = styled.p`
@@ -100,8 +95,9 @@ const Description = styled.p`
   justify-content: center;
   align-items: center;
   margin: 0;
-  height: calc(362px / 3);
-  font-size: 0.9rem;
+  height: calc(362px / 3.5);
+  font-size: 0.75rem;
+  padding: 0 0.5rem;
 `
 
 export default function ProfileDetail() {
@@ -112,7 +108,7 @@ export default function ProfileDetail() {
 
   const storage = new GetImgStorage();
   const { data: detailList } = useQuery({
-    queryKey: ['detailList'],
+    queryKey: ['detailList', profileId],
     queryFn: async () => {
       const result = await storage.getImages(`profile/profileDetail/${profileId}`);
       return result;

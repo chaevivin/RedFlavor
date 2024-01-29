@@ -10,8 +10,8 @@ const LikeButton = styled.button<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(143px / 3);
-  height: calc(95px / 3);
+  width: calc(143px / 3.5);
+  height: calc(95px / 3.5);
   background-color: transparent;
   border: none;
   display: flex;
@@ -21,8 +21,8 @@ const LikeButton = styled.button<{ $imgurl: string | undefined }>`
 `
 
 const LikeImg = styled.img`
-  width: calc(83px / 3);
-  height: calc(67px / 3);
+  width: calc(83px / 3.5);
+  height: calc(67px / 3.5);
 `
 
 export default function LikeMusic() {

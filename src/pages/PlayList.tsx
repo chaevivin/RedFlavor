@@ -28,7 +28,7 @@ const Container = styled.div<{ $top: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  width: calc(1088px / 3.7);
+  width: calc(1088px / 3.8);
   margin-bottom: 1rem;
 
   ${p =>
@@ -48,7 +48,7 @@ const TrackNumber = styled.p`
   margin: 0;
   color: #ffffff;
   text-shadow: -2px 0 #3ebf6f, 0 2px #3ebf6f, 2px 0 #3ebf6f, 0 -2px #3ebf6f;
-  font-size: 2rem;
+  font-size: 1.8rem;
 `
 
 const TrackNote = styled.span`

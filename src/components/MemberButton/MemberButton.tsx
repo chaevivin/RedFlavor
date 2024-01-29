@@ -15,18 +15,19 @@ const MemberProfileButton = styled.button`
   flex-flow: column;
   align-items: center;
   cursor: pointer;
-  width: 130px;
   background: none;
   border: none;
+  padding: 0;
+  margin-bottom: 0.4rem;
 `
 
 const Name = styled.img`
-  width: calc(154px / 3);
+  width: calc(154px / 3.5);
   margin-bottom: 0.3rem;
 `
 
 const Character = styled.img<{ $imgwidth: number }>`
-  width: calc(${p => p.$imgwidth}px / 3);
+  width: calc(${p => p.$imgwidth}px / 3.5);
 `
 
 export default function MemberButton({ name, nameUrl, imgUrl, width }: MemberButtonProps) {

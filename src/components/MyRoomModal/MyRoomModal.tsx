@@ -13,10 +13,18 @@ const ModalBackground = styled.div<{ $imgurl: string | undefined }>`
   background-size: cover;
   width: calc(484px / 3);
   background-repeat: no-repeat;
-  height: 100vh;
   position: absolute;
   right: 0;
   top: 0;
+
+  /* 세로 모드 */
+  @media (orientation: portrait) {
+    height: 100vw;
+  }
+  /* 가로 모드 */
+  @media (orientation: landscape) {
+      height: 100vh;
+  }
 `
 
 const OffModalButton = styled.button<{ $imgurl: string | undefined }>`

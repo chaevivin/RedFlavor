@@ -27,13 +27,13 @@ const Container = styled.div`
 `
 
 const Photocard = styled.canvas`
-  width: 350px;
-  height: 495px;
+  width: 315px;
+  height: 445.5px;
 `
 
 const PhotocardBackground = styled.div<{ $color: string }>`
-  width: 350px;
-  height: 495px;
+  width: 315px;
+  height: 445.5px;
   background-color: ${p => p.$color};
 `
 
@@ -98,8 +98,8 @@ export default function PhotoCardImg({ saveTargetRef, fabricCanvasRef, backgroun
   // 캔버스 초기화
   useLayoutEffect(() => {
     const newCanvas = new fabric.Canvas('canvas', {
-      width: 350,
-      height: 495,
+      width: 315,
+      height: 445.5,
       backgroundImage: imgurl,
       preserveObjectStacking: true,
     });
@@ -112,8 +112,8 @@ export default function PhotoCardImg({ saveTargetRef, fabricCanvasRef, backgroun
     if (canvas && imgurl) {
       fabricCanvasRef.current = canvas;
       canvas.setBackgroundImage(imgurl, canvas.renderAll.bind(canvas), {
-        scaleX: 0.335,
-        scaleY: 0.335,
+        scaleX: 0.3,
+        scaleY: 0.3,
         crossOrigin: 'anonymous'
       });
 

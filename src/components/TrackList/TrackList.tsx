@@ -16,8 +16,8 @@ const Background = styled.div<{ $imgurl: string | undefined}>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(1088px / 3);
-  height: calc(1833px / 3);
+  width: calc(1088px / 3.5);
+  height: calc(1833px / 3.5);
   position: relative;
   color: #ffffff;
 `
@@ -27,11 +27,11 @@ const ListContainer = styled.ul`
   position: absolute;
   top: 9.5%;
   left: 15.5%;
-  font-size: 1rem;
+  font-size: 0.85rem;
   list-style: none;
-  width: 245px;
+  width: 210px;
   overflow: scroll;
-  height: 170px;
+  height: 150px;
   padding: 0;
 
   &::-webkit-scrollbar {

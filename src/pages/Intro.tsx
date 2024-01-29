@@ -36,7 +36,7 @@ export default function Intro() {
         }
         return nextCount;
       });
-    }, 1500);
+    }, 800);
   
     if (count === 4) {       
       clearInterval(timer);

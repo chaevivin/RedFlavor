@@ -31,13 +31,13 @@ const Background = styled.section<{ $open: boolean }>`
 
 const Container = styled.div`
   display: flex;
-  width: calc(1081px / 3);
+  width: 315px;
   justify-content: space-evenly;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `
 
 const TitleImg = styled.img`
-  width: 163px;
+  width: calc(465px / 3);
   margin: 0 1rem 0 5rem;
 `
 
@@ -71,12 +71,14 @@ export default function PhotoCard() {
     <>
       {photocardTitle &&
         <Background $open={openPanel}>
-          <Back navigate={navigate} color='#c4b5b5' />
           {openPanel || (
-            <Container>
-              <TitleImg src={photocardTitle[0]} alt='photocard title' />
-              <PhotoCardSave saveTargetRef={saveTargetRef} />
-            </Container>
+            <>
+              <Back navigate={navigate} color='#c4b5b5' />
+              <Container>
+                <TitleImg src={photocardTitle[0]} alt='photocard title' />
+                <PhotoCardSave saveTargetRef={saveTargetRef} />
+              </Container>
+            </>
           )}
           <PhotoCardImg 
             saveTargetRef={saveTargetRef} 

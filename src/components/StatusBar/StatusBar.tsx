@@ -7,20 +7,18 @@ const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(391px / 3);
-  height: calc(86px / 3);
   position: absolute;
   top: 8.8%;
   right: 16.1%;
+  width: calc(391px / 3);
+  height: calc(86px / 3);
+  display: flex;
+  justify-content: center;
   z-index: -1;
 `
 
 const StatusText = styled.input`
   width: 86%;
-  position: absolute;
-  top: 25%;
-  left: 6%;
-  right: 0;
   font-size: 0.7rem;
   background: transparent;
   border: none;

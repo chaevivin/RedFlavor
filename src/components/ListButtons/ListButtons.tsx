@@ -9,10 +9,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: absolute;
-  width: calc(751px / 3);
-  height: calc(751px / 3);
+  width: calc(751px / 3.5);
+  height: calc(751px / 3.5);
   top: 51%;
-  left: 15.5%;
+  left: 15.1%;
 `
 
 const PrevButton = styled.button`

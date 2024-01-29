@@ -14,8 +14,7 @@ interface PhotoCardFooterProps {
 const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
-  width: calc(1081px / 3);
-  margin-top: 2.5rem;
+  width: 315px;
 `
 
 const Container = styled.div`

@@ -16,7 +16,7 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
 `
 
 const Logo = styled.img`
-  width: calc(738px / 3);
+  width: calc(738px / 3.5);
   margin-bottom: 1rem;
 `
 
@@ -26,7 +26,7 @@ const ButtonContainer = styled.div`
 `
 
 const CheckBox = styled.img`
-  width: calc(67px / 3);
+  width: calc(67px / 3.5);
   margin-right: 1.3rem;
 `
 
@@ -35,20 +35,20 @@ const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined; $playl
   background-size: contain;
   background-repeat: no-repeat;
   display: block;
-  width: calc(694px / 3);
-  height: calc(197px / 3);
+  width: calc(694px / 3.5);
+  height: calc(197px / 3.5);
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   text-decoration: none;
   margin: 1.2rem 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 
   ${p =>
     p.$playlist &&
       css`
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       `
   }
 `)

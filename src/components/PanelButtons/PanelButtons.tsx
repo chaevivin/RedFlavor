@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 const ButtonSection = styled.section`
   display: flex;
   justify-content: flex-end;
-  width: 350px;
+  width: 315px;
 `
 
 const ButtonContainer = styled.div`
@@ -18,8 +18,8 @@ const ButtonContainer = styled.div`
 `
 
 const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
-  width: calc(196px / 3);
-  height: calc(106px / 3);
+  width: calc(196px / 3.5);
+  height: calc(106px / 3.5);
   font-family: '소야꼬마9';
   background-image: url(${p => p.$imgurl});
   background-size: cover;
@@ -29,7 +29,7 @@ const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   cursor: pointer;
   color: #fef4f6;
   text-shadow: -1.5px 0 #f787a7, 0 1.5px #f787a7, 1.5px 0 #f787a7, 0 -1.5px #f787a7;
-  font-size: 1rem;
+  font-size: 0.9;
   padding: 0;
   padding-top: 0.2rem;
 
@@ -44,7 +44,7 @@ const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
 
 const CompleteButton = styled.button`
   background-color: transparent;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   border: none;
   cursor: pointer;
   color: #f787a7;
