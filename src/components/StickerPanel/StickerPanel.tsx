@@ -120,7 +120,7 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
         try {
           const url = frameList[index];
           fabric.Image.fromURL(url, (img) => {
-            const newImg = img.set({ left: 0, top: 0, scaleX: 0.335, scaleY: 0.335, selectable: true });
+            const newImg = img.set({ left: 0, top: 0, scaleX: 0.3, scaleY: 0.3, selectable: true });
             newImg.borderColor = '#ffffff';
             newImg.cornerSize = 5;
             newImg.controls.deleteControl = new fabric.Control({
