@@ -16,7 +16,9 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
@@ -25,10 +27,6 @@ const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
   background-repeat: no-repeat;
   width: calc(1136px / 3.5);
   height: calc(2040px / 3.5);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
 `
 
