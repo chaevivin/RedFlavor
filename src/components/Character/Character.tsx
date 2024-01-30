@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const CharacterButton = styled.button`
   padding: 0;
-  width: calc(100% / 4.6);
+  width: calc(492px / 2.8);
   background-color: transparent;
   border: none;
   position: absolute;
