@@ -145,7 +145,7 @@ export default function Loading() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/myroom");
-    }, 5000);
+    }, 4500);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -162,9 +162,9 @@ export default function Loading() {
           <BookIcon src={loading[0]} />
           <LoadingContainer>
             <LoadingImg src={loading[7]} />
-            <LoadingDot src={loading[1]} $active $second={'2s'} />
-            <LoadingDot src={loading[1]} $active $second={'3s'} />
-            <LoadingDot src={loading[1]} $active $second={'4s'} />
+            <LoadingDot src={loading[1]} $active $second={'1.5s'} />
+            <LoadingDot src={loading[1]} $active $second={'2.5s'} />
+            <LoadingDot src={loading[1]} $active $second={'3.5s'} />
           </LoadingContainer>
         </Background>
       }
