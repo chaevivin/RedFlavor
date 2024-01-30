@@ -20,6 +20,8 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+  top: 100%;
+  left: 0;
   z-index: 1;
   @media( orientation: portrait ){
     transform: rotate(-90deg);
@@ -27,8 +29,8 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100vh;
-    height: 100vw;
+    width: 100dvh;
+    height: 100dvw;
   }
 `
 
@@ -37,7 +39,12 @@ const ModalBackground = styled.div<{ $modalState: boolean }>`
     p.$modalState &&
     css`
       background-color: rgba(14, 14, 14, 0.68);
-      height: 100vh;
+      height: 100dvh;
+
+      @media( orientation: portrait ){
+        background-color: rgba(14, 14, 14, 0.68);
+        height: 100dvw;
+      }
   `}
 `
 
