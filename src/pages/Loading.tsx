@@ -142,13 +142,13 @@ export default function Loading() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigate("/myroom");
-  //   }, 5000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/myroom");
+    }, 5000);
 
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <>
