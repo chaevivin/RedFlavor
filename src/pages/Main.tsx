@@ -49,7 +49,7 @@ const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined; $playl
   ${p =>
     p.$playlist &&
       css`
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       `
   }
 `)
