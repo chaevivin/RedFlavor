@@ -53,8 +53,8 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   border: none;
   cursor: pointer;
   color: #ffffff;
-  width: calc(68px / 3.76);
-  height: calc(492px / 3.47);
+  width: calc(68px / 3.8);
+  height: calc(492px / 3.5);
   position: absolute;
   display: flex;
   justify-content: center;
