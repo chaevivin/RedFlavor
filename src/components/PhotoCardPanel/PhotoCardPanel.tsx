@@ -63,8 +63,8 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   ${p => 
     p.$left ?
     css`
-      right: 1.1%;
-    top: 1.2%;
+      left: 1.1%;
+      top: 1.2%;
     ` :
     css`
       right: 1.1%;
