@@ -37,7 +37,7 @@ const MemberButton = styled.button<{ $outlineColor: string; $clicked: boolean }>
   ${(p) => 
     p.$clicked &&
     css`
-      border-width: 3px;
+      border-width: 2.5px;
     `
   }
 `

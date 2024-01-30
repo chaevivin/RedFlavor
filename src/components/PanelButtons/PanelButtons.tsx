@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 const ButtonSection = styled.section`
   display: flex;
   justify-content: space-between;
-  width: 315px;
+  width: 325px;
 `
 
 const ButtonContainer = styled.div`
@@ -28,7 +28,7 @@ const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   border: none;
   cursor: pointer;
   color: #fef4f6;
-  text-shadow: -1.5px 0 #f787a7, 0 1.5px #f787a7, 1.5px 0 #f787a7, 0 -1.5px #f787a7;
+  text-shadow: -1px 0 #f787a7, 0 1px #f787a7, 1px 0 #f787a7, 0 -1px #f787a7;
   font-size: 0.9;
   padding: 0;
   padding-top: 0.2rem;
