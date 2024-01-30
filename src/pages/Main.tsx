@@ -43,6 +43,7 @@ const LinkButton = React.memo(styled(Link)<{ $imgurl: string | undefined; $playl
   color: white;
   text-decoration: none;
   margin: 1.2rem 0;
+  margin-right: 2rem;
   font-size: 1.3rem;
 
   ${p =>

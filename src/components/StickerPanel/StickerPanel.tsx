@@ -9,14 +9,6 @@ interface StickerPanelProps {
   fabricCanvasRef: React.MutableRefObject<fabric.Canvas | null>;
 }
 
-interface RenderIconType {
-  ctx: CanvasRenderingContext2D;
-  left: number;
-  top: number;
-  styleOverride: any;
-  fabricObject: fabric.Object;
-}
-
 const StickerContainer = styled.ul`
   list-style: none;
   padding: 0;
@@ -33,8 +25,8 @@ const StickerButton = styled.button<{ $imgurl: string | undefined; $background: 
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: calc(150px / 3.5);
+  height: calc(150px / 3.5);
 
   ${p => 
     p.$background &&
@@ -43,10 +35,6 @@ const StickerButton = styled.button<{ $imgurl: string | undefined; $background: 
       `
   }
 `
-
-const deleteBtn = document.createElement('img');
-deleteBtn.src = '/img/delete.png';
-deleteBtn.width = 8;
 
 // 스티커 삭제
 function deleteObject(eventData: MouseEvent, transform: fabric.Transform) {

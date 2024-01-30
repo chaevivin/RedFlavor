@@ -11,7 +11,6 @@ interface FramePanelProps {
   backgroundImgRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-// 첫 번째 index 값만 true -> 첫 번째 default
 const backClickedValue: boolean[] = Array.from({ length: 7 }, () => false);
 const backgroundColor = ['#ffa0d4', '#fcf199', '#99c8fc', '#aafc99', '#cd99fc'];
 
@@ -31,8 +30,8 @@ const FrameButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: calc(150px / 3.5);
+  height: calc(150px / 3.5);
   position: relative;
 
   ${p => 
@@ -49,14 +48,14 @@ const FrameCheck = styled.div<{ $clicked: boolean }>`
     p.$clicked &&
       css`
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: calc(150px / 3.5);
+        height: calc(150px / 3.5);
         display: flex;
         justify-content: center;
         align-items: center;
         top: 0;
         color: #d7899f;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       `
   }
 `
@@ -95,11 +94,6 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
     }
   }, [frameIcon, frameBackground]);
 
-  // 요소가 8개 이상이면 다음 페이지로 (페이지네이션)
-  const startIndex = (currentPage - 1) * 8;
-  const endIndex = startIndex + 8;
-  const currentImages = frameIcon?.slice(startIndex, endIndex);
-
   // frame 버튼 누르면 배경 바뀌거나 프레임 
   const handleAddClick = (index: number) => {
     setClicked((prev) => prev.map((v, i) => (i === index ? !v : false)));
@@ -133,7 +127,7 @@ export default function FramePanel({ currentPage, fabricCanvasRef, backgroundImg
     <>
       {frameIcon &&
         <FrameContainer>
-          {currentImages?.map((url, index) => (
+          {frameIcon?.map((url, index) => (
             <li key={index} style={{ position: 'relative' }}>
               <FrameButton 
                 $imgurl={url}

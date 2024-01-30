@@ -26,8 +26,8 @@ const PanelBox = styled.div<{ $imgurl: string | undefined }>`
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;
-  width: calc(1170px / 3);
-  height: calc(666px / 3);
+  width: calc(1170px / 3.5);
+  height: calc(666px / 3.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,8 +38,8 @@ const PanelInner = styled.div<{ $imgurl: string | undefined }>`
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  width: calc(1016px / 3);
-  height: calc(508px / 3);
+  width: calc(1016px / 3.5);
+  height: calc(508px / 3.5);
   justify-content: space-around;
   align-items: center;
   position: relative;
@@ -53,8 +53,8 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   border: none;
   cursor: pointer;
   color: #ffffff;
-  width: calc(68px / 3);
-  height: calc(492px / 3);
+  width: calc(68px / 3.5);
+  height: calc(492px / 3.5);
   position: absolute;
   display: flex;
   justify-content: center;

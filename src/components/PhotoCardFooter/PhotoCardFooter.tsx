@@ -77,7 +77,7 @@ export default function PhotoCardFooter({ fabricCanvasRef }: PhotoCardFooterProp
       <Button
         onClick={() => handleResetClick()}
       >
-        <GrPowerReset color='#ffa7ba' size='1.6rem' />
+        <GrPowerReset color='#ffa7ba' size='1.3rem' />
         초기화
       </Button>
     </Footer>

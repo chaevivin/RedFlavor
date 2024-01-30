@@ -33,12 +33,12 @@ const CloseButton = styled.button<{ $imgurl: string | undefined }>`
   cursor: pointer;
   width: calc(55px / 3);
   height: calc(55px / 3);
-  transform: translate(170px, 0);
+  transform: translate(150px, 0);
   margin-bottom: 0.5rem;
 `
 
 const ExampleImg = styled.img`
-  width: calc(964px / 3);
+  width: calc(964px / 3.5);
 `
 
 export default function PhotoCardExample() {

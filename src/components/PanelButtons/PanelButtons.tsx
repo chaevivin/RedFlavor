@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const ButtonSection = styled.section`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 315px;
 `
 

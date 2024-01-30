@@ -22,8 +22,8 @@ const BrushContainer = styled.ul`
 `
 
 const ButtonContainer = styled.li<{ $clicked: boolean }>`
-  height: 50px;
-  width: 50px;
+  height: calc(150px / 3.5);
+  width: calc(150px / 3.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,8 +47,8 @@ const BrushButton = styled.button<{ $imgurl: string | undefined }>`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: calc(119px / 3);
-  height: calc(113px / 3);
+  width: calc(119px / 3.5);
+  height: calc(113px / 3.5);
   padding: 0
 `
 

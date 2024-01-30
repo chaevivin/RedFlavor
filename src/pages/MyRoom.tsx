@@ -63,8 +63,8 @@ const MenuButton = styled.button<{ $imgurl: string | undefined }>`
   cursor: pointer;
   background-color: transparent;
   border: none;
-  width: calc(206px / 2);
-  height: calc(103px / 2);
+  width: calc(206px / 2.5);
+  height: calc(103px / 2.5);
   position: absolute;
   right: 0;
   top: 0;
@@ -73,9 +73,9 @@ const MenuButton = styled.button<{ $imgurl: string | undefined }>`
 `
 
 const MenuContainer = styled.div`
-  padding-top: 0.5rem;
   text-align: left;
-  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 0.7rem;
 `
 
 export default function MyRoom() {

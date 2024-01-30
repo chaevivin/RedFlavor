@@ -33,12 +33,14 @@ const Container = styled.div`
   display: flex;
   width: 315px;
   justify-content: space-evenly;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
 `
 
 const TitleImg = styled.img`
   width: calc(465px / 3);
-  margin: 0 1rem 0 5rem;
+  margin-left: 4.5rem;
+  margin-right: 1.5rem;
 `
 
 export default function PhotoCard() {

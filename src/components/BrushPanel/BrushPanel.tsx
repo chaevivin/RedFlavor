@@ -10,13 +10,13 @@ interface BrushPanelProps {
 
 const BrushSection= styled.section`
   height: 150px;
-  width: 270px;
+  width: 230px;
 `
 
 const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
-  margin: 0.5rem 0 0.9rem 0;
+  margin: 0.9rem 0 0.5rem 0;
 `
 
 export default function BrushPanel({ fabricCanvasRef }: BrushPanelProps) {

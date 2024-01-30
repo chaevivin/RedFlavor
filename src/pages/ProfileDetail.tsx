@@ -31,14 +31,14 @@ const InnerBackground = styled.div<{ $imgurl: string | undefined }>`
 `
 
 const TitleHeart = styled.span<{ $color: string }>`
-  font-size: 0.8rem;
-  color: #dd85ad;
+  font-size: 0.7rem;
+  color: ${p => p.$color};
   text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
 `
 
 const Title = styled.p<{ $color: string }>`
-  font-size: 1rem;
-  color: #dd85ad;
+  font-size: 1.1rem;
+  color: ${p => p.$color};
   text-shadow: -1.3px 0 #ffffff, 0 1.3px #ffffff, 1.3px 0 #ffffff, 0 -1.3px #ffffff;
   margin: 4.6rem 0 1rem 0;
 `

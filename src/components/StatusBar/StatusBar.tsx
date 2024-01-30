@@ -24,6 +24,7 @@ const StatusText = styled.input`
   border: none;
   font-family: '소야꼬마9';
   color: #451821;
+  padding-top: 0.2rem;
 `
 
 export default function StatusBar() {

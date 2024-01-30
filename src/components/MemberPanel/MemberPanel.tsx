@@ -10,8 +10,8 @@ const outlineColors = ['#ecdcfa', '#def9d9', '#deedfc', '#fdf8ce', '#fee0f0'];
 const selectedOutlineColors = ['#cd99fc', '#7df964', '#76c7ff', '#f5df2b', '#fe8ccb'];
 
 const MemberContainer = styled.section`
-  width: 260px;
-  height: 140px;
+  width: 240px;
+  height: 130px;
   display: flex;
   align-items: center;
   flex-wrap: wrap-reverse;
@@ -25,11 +25,11 @@ const MemberButton = styled.button<{ $outlineColor: string; $clicked: boolean }>
   border-width: 2px;
   border-radius: 50%;
   cursor: pointer;
-  width: 60px;
-  height: 60px;
+  width: calc(180px / 3.5);
+  height: calc(180px / 3.5);
   background-color: white;
   padding: 0;
-  margin: 0 0.8rem;
+  margin: 0 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,8 +43,8 @@ const MemberButton = styled.button<{ $outlineColor: string; $clicked: boolean }>
 `
 
 const MemberImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: calc(150px / 3.5);
+  height: calc(150px / 3.5);
 `
 
 export default function MemberPanel() {
