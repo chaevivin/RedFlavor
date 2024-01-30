@@ -12,7 +12,7 @@ const CharacterButton = styled.button`
   background-color: transparent;
   border: none;
   position: absolute;
-  left: 38.5%;
+  left: 37.5%;
   top: 35%;
   cursor: pointer;
   z-index: -1;
