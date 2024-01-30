@@ -58,8 +58,8 @@ const BackButton = styled.div<{ $imgurl: string | undefined }>`
   width: calc(100% / 25);
   height: calc(100% / 14);
   position: absolute;
-  top: 1%;
-  left: 4%;
+  top: 3%;
+  left: 5%;
   z-index: -1;
 `
 
