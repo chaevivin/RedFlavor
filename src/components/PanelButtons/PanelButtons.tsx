@@ -9,13 +9,13 @@ import { useQuery } from '@tanstack/react-query';
 
 const ButtonSection = styled.section`
   display: flex;
-  flex-shrink: 1;
   justify-content: space-between;
   width: 325px;
 `
 
 const ButtonContainer = styled.div`
   margin-right: 2.5rem;
+  display: flex;
 `
 
 const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boolean }>`
@@ -30,7 +30,7 @@ const PanelButton = styled.button<{ $imgurl: string | undefined; $clicked: boole
   cursor: pointer;
   color: #fef4f6;
   text-shadow: -1px 0 #f787a7, 0 1px #f787a7, 1px 0 #f787a7, 0 -1px #f787a7;
-  font-size: 0.9;
+  font-size: 0.9rem;
   padding: 0;
   padding-top: 0.2rem;
 
