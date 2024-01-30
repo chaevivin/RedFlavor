@@ -54,7 +54,7 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   cursor: pointer;
   color: #ffffff;
   width: calc(68px / 3.8);
-  height: calc(492px / 3.5);
+  height: calc(492px / 3.55);
   position: absolute;
   display: flex;
   justify-content: center;
@@ -159,7 +159,7 @@ export default function PhotoCardPanel({ fabricCanvasRef, backgroundImgRef }: Ph
                   $left={false}
                   onClick={() => handlePageChange(currentPage + 1)}
                 >
-                  ▶
+                  ◀
                 </MoveButton>
               </PanelInner>
           </PanelBox>
