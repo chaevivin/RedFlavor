@@ -8,7 +8,7 @@ const BubbleBtn = styled.button`
   height: calc(139px / 2.2);
   position: absolute;
   top: 23.5%;
-  left: 52.5%;
+  left: 51.7%;
   display: flex;
   justify-content: flex-start;
   background: transparent;
