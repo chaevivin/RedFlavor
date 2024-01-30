@@ -4,11 +4,11 @@ import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
 
 const BubbleBtn = styled.button`
-  width: calc(100% / 8);
-  height: calc(100% / 6);
+  width: calc(229px / 2);
+  height: calc(139px / 2);
   position: absolute;
   top: 23.5%;
-  left: 51%;
+  left: 52.5%;
   display: flex;
   justify-content: flex-start;
   background: transparent;
