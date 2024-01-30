@@ -53,8 +53,8 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   border: none;
   cursor: pointer;
   color: #ffffff;
-  width: calc(68px / 3.5);
-  height: calc(492px / 3.5);
+  width: calc(68px / 3.76);
+  height: calc(492px / 3.47);
   position: absolute;
   display: flex;
   justify-content: center;
@@ -63,12 +63,12 @@ const MoveButton = styled.button<{ $imgurl: string | undefined; $left: boolean }
   ${p => 
     p.$left ?
     css`
-      left: 1.3%;
-      top: 1.1%;
+      right: 1.1%;
+    top: 1.2%;
     ` :
     css`
-      right: 1.3%;
-      top: 1.1%;
+      right: 1.1%;
+      top: 1.2%;
     `
   }
 `
