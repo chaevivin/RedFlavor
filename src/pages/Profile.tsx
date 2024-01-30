@@ -9,7 +9,7 @@ import MemberButton from '../components/MemberButton/MemberButton';
 const name: string[] = ['irene', 'seulgi', 'wendy', 'joy', 'yeri'];
 
 const Background = styled.section<{ $imgurl: string | undefined }>`
-  height: 100vh;
+  height: 100dvh;
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;

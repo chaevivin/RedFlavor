@@ -9,7 +9,7 @@ const Container = styled.section`
 `
 
 const Background = styled.img`
-  height: 100vh;
+  height: 100dvh;
 `
 
 export default function Intro() {

@@ -9,7 +9,7 @@ import ProgressBar from '../components/ProgressBar/ProgressBar';
 import styled, { css } from 'styled-components';
 
 const Background = styled.section`
-  height: 100vh;
+  height: 100dvh;
   background-color: #282828;
   display: flex;
   justify-content: center;

@@ -12,7 +12,7 @@ interface stateType {
 }
 
 const Background = styled.section<{ $imgurl: string | undefined }>`
-  height: 100vh;
+  height: 100dvh;
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;

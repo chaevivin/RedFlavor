@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import styled, { css } from 'styled-components';
 
 const Background = styled.section<{ $imgurl: string | undefined }>`
-  height: 100vh;
+  height: 100dvh;
   background-image: url(${p => p.$imgurl});
   background-size: cover;
   background-repeat: no-repeat;

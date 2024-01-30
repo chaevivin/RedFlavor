@@ -16,7 +16,7 @@ const upIcon = keyframes`
 
 const Background = styled.section`
   background-color: #fff3f9;
-  height: 100vh;
+  height: 100dvh;
   position: relative;
   display: flex;
   flex-direction: column;

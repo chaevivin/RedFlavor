@@ -15,7 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const Background = styled.section<{ $open: boolean }>`
   background-color: #fbf8f8;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
