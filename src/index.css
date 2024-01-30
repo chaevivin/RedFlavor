@@ -14,7 +14,7 @@ body {
   font-family: "소야꼬마9", "소야쌀9";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 code {
