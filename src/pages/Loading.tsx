@@ -102,7 +102,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 61%;
+  top: 62.5%;
   left: 5%;
 `
 
@@ -116,8 +116,8 @@ const LoadingDot = styled.img<{ $active: any; $second: string }>`
   margin-right: 0.5rem;
   ${(p) => p.$active && css`
     animation-name: ${upIcon};
-    animation-delay: 1.5s;
-    animation-duration: ${p.$second};
+    animation-delay: ${p.$second};
+    animation-duration: 0.5s;
     animation-timing-function: linear;
   `}
 `
@@ -142,13 +142,13 @@ export default function Loading() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/myroom");
-    }, 5000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     navigate("/myroom");
+  //   }, 5000);
 
-    return () => clearTimeout(timer);
-  }, [navigate]);
+  //   return () => clearTimeout(timer);
+  // }, [navigate]);
 
   return (
     <>
