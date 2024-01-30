@@ -10,7 +10,7 @@ interface BrushPanelProps {
 
 const BrushSection= styled.section`
   height: 150px;
-  width: 230px;
+  width: 225px;
 `
 
 const Container = styled.div`
