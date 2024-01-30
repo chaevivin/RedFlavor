@@ -63,8 +63,8 @@ const MenuButton = styled.button<{ $imgurl: string | undefined }>`
   cursor: pointer;
   background-color: transparent;
   border: none;
-  width: calc(206px / 2.5);
-  height: calc(103px / 2.5);
+  width: calc(206px / 2.2);
+  height: calc(103px / 2.2);
   position: absolute;
   right: 0;
   top: 0;
