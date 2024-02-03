@@ -15,7 +15,7 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
   align-items: center;
 `
 
-const Logo = styled.img`
+const Logo = styled.link`
   width: calc(738px / 3.5);
   margin-bottom: 1rem;
 `
@@ -76,7 +76,7 @@ export default function Main() {
     <>
       {mainList &&
         <Background $imgurl={mainList[0]}>
-          <Logo src={mainList[7]}></Logo>
+          <Logo rel="preload" as="image" href={mainList[7]} type="image/png"></Logo>
           <ButtonContainer>
             <CheckBox src={mainList[6]}></CheckBox>
             <LinkButton $imgurl={mainList[2]} $playlist={false} to='/profile'>프로필 보기</LinkButton>
