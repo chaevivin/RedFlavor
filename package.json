@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@types/fabric": "^5.3.6",
-    "@types/file-saver": "^2.0.7"
+    "@types/file-saver": "^2.0.7",
+    "first-input-delay": "^0.1.3"
   }
 }
