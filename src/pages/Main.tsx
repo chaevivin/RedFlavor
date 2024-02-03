@@ -76,7 +76,7 @@ export default function Main() {
     <>
       {mainList &&
         <Background $imgurl={mainList[0]}>
-          <Logo rel="preload" as="image" href={mainList[7]} type="image/png"></Logo>
+          <Logo rel="preload" as="img" src={mainList[7]} />
           <ButtonContainer>
             <CheckBox src={mainList[6]}></CheckBox>
             <LinkButton $imgurl={mainList[2]} $playlist={false} to='/profile'>프로필 보기</LinkButton>
