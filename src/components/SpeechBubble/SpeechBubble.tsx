@@ -16,13 +16,13 @@ const blinkText = keyframes`
 `
 
 const BubbleContainer = styled.div`
-  position: absolute;
-  top: 23.5%;
-  left: 51%;
-  text-align: center;
+  
 `
 
 const BubbleBtn = styled.button`
+  position: absolute;
+  top: 23.5%;
+  left: 51%;
   width: calc(229px / 2.2);
   height: calc(139px / 2.2);
   display: flex;
@@ -42,6 +42,9 @@ const BubbleHelp = styled.img`
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  position: absolute;
+  top: 17%;
+  left: 51.4%;
 `
 
 export default function SpeechBubble() {

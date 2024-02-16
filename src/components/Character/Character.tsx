@@ -19,9 +19,6 @@ const blinkText = keyframes`
 `
 
 const CharacterContainer = styled.div`
-  position: absolute;
-  left: 28%;
-  top: 36%;
 `
 
 const CharacterButton = styled.button`
@@ -31,6 +28,7 @@ const CharacterButton = styled.button`
   border: none;
   position: absolute;
   left: 37.5%;
+  top: 36%;
   cursor: pointer;
   z-index: -1;
 `
@@ -45,8 +43,9 @@ const CharacterHelp = styled.img`
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  margin-top: 2.5rem;
-  margin-right: 4.5rem;
+  position: absolute;
+  left: 29.5%;
+  top: 42%;
 `
 
 export default function Character() {

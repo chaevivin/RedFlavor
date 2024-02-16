@@ -16,12 +16,13 @@ const blinkText = keyframes`
 `;
 
 const StatusContainer = styled.div`
-  position: absolute;
-  top: 8.8%;
-  right: 15.1%;
+
 `
 
 const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
+  position: absolute;
+  top: 8.8%;
+  right: 15.1%;
   background-image: url(${(p) => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
@@ -48,8 +49,9 @@ const StatusHelp = styled.img`
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  margin-top: 0.3rem;
-  margin-left: 1.5rem;
+  position: absolute;
+  top: 17%;
+  right: 17%;
 `;
 
 export default function StatusBar() {
