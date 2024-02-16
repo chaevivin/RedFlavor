@@ -15,13 +15,16 @@ const blinkText = keyframes`
   }
 `;
 
+const StatusContainer = styled.div`
+  position: absolute;
+  top: 8.8%;
+  right: 15.1%;
+`
+
 const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
   background-image: url(${(p) => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
-  position: absolute;
-  top: 8.8%;
-  right: 16.1%;
   width: calc(391px / 3);
   height: calc(86px / 3);
   display: flex;
@@ -40,14 +43,13 @@ const StatusText = styled.input`
 `;
 
 const StatusHelp = styled.img`
-  position: absolute;
   width: calc(197px / 2.3);
-  top: 17%;
-  right: 19%;
   z-index: -1;
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  margin-top: 0.3rem;
+  margin-left: 1.5rem;
 `;
 
 export default function StatusBar() {
@@ -88,7 +90,7 @@ export default function StatusBar() {
   return (
     <>
       {myroomStatus && (
-        <div>
+        <StatusContainer>
           <StatusBackground $imgurl={myroomStatus[0]}>
             <StatusText
               type="text"
@@ -104,7 +106,7 @@ export default function StatusBar() {
           ) : (
             ""
           )}
-        </div>
+        </StatusContainer>
       )}
     </>
   );

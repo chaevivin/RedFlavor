@@ -18,6 +18,12 @@ const blinkText = keyframes`
   }
 `
 
+const CharacterContainer = styled.div`
+  position: absolute;
+  left: 32.5%;
+  top: 36%;
+`
+
 const CharacterButton = styled.button`
   padding: 0;
   width: calc(492px / 3);
@@ -25,7 +31,6 @@ const CharacterButton = styled.button`
   border: none;
   position: absolute;
   left: 37.5%;
-  top: 35%;
   cursor: pointer;
   z-index: -1;
 `
@@ -35,14 +40,13 @@ const CharacterImg = styled.img`
 `
 
 const CharacterHelp = styled.img`
-  position: absolute;
   width: calc(197px / 2.3);
-  top: 44%;
-  left: 31.5%;
   z-index: -1;
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  margin-top: 2.5rem;
+  margin-right: 4.5rem;
 `
 
 export default function Character() {
@@ -91,14 +95,14 @@ export default function Character() {
   return (
     <>
       {myroomCharacter &&
-        <div>
+        <CharacterContainer>
           {buttonVisible ? <CharacterHelp src={myroomCharacter[0]} alt='characnter help' /> : ''}
           <CharacterButton 
             onClick={(e) => handleCharClick(e)}
           >
             <CharacterImg src={myroomCharacter[num + 1]} alt='member' />
           </CharacterButton>
-        </div>
+        </CharacterContainer>
       }
     </>
   );

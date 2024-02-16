@@ -15,12 +15,16 @@ const blinkText = keyframes`
   }
 `
 
-const BubbleBtn = styled.button`
-  width: calc(229px / 2.2);
-  height: calc(139px / 2.2);
+const BubbleContainer = styled.div`
   position: absolute;
   top: 23.5%;
   left: 51%;
+  text-align: center;
+`
+
+const BubbleBtn = styled.button`
+  width: calc(229px / 2.2);
+  height: calc(139px / 2.2);
   display: flex;
   justify-content: flex-start;
   background: transparent;
@@ -33,10 +37,7 @@ const BubbleImg = styled.img`
 `
 
 const BubbleHelp = styled.img`
-  position: absolute;
   width: calc(197px / 2.3);
-  top: 18%;
-  right: 39.5%;
   z-index: -1;
   animation-name: ${blinkText};
   animation-duration: 2s;
@@ -72,14 +73,14 @@ export default function SpeechBubble() {
   return (
     <>
       {myroomBubble &&
-        <div>
+        <BubbleContainer>
           {buttonVisible ? <BubbleHelp src={myroomBubble[6]} alt='bubble help' /> : ''}
           <BubbleBtn
             onClick={(e) => handleBubbleClick(e)}
           >
             <BubbleImg src={myroomBubble[num]}></BubbleImg>
           </BubbleBtn>
-        </div>
+        </BubbleContainer>
       }
     </>
   );

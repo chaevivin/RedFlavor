@@ -98,13 +98,11 @@ const MenuContainer = styled.div`
 `
 
 const MenuHelp = styled.img`
-  position: absolute;
   width: calc(197px / 2.3);
-  top: 12%;
-  right: 0.7%;
   animation-name: ${blinkText};
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  margin-top: 1rem;
 `
 
 export default function MyRoom() {
@@ -155,8 +153,8 @@ export default function MyRoom() {
               <MenuContainer>
                 <IoMenu color='#46101d' size='1.5rem' />
               </MenuContainer>
+              {buttonVisible ? <MenuHelp src={myroomBackground[3]} alt='menu help' /> : ''}
             </MenuButton>
-            {buttonVisible ? <MenuHelp src={myroomBackground[3]} alt='menu help' /> : ''}
           </ModalBackground>
           {modalState ? <MyRoomModal /> : ''}
         </Background>
