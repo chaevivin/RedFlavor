@@ -15,7 +15,7 @@ const Background = styled.section<{ $imgurl: string | undefined }>`
   align-items: center;
 `
 
-const Logo = styled.link`
+const Logo = styled.img`
   width: calc(738px / 3.5);
   margin-bottom: 1rem;
 `
@@ -76,21 +76,21 @@ export default function Main() {
     <>
       {mainList &&
         <Background $imgurl={mainList[0]}>
-          <Logo rel="preload" as="img" src={mainList[7]} />
+          <Logo src={mainList[7]} alt='main logo image' />
           <ButtonContainer>
-            <CheckBox src={mainList[6]}></CheckBox>
+            <CheckBox src={mainList[6]} alt='main checkbox1' />
             <LinkButton $imgurl={mainList[2]} $playlist={false} to='/profile'>프로필 보기</LinkButton>
           </ButtonContainer>
           <ButtonContainer>
-            <CheckBox src={mainList[6]}></CheckBox>
+            <CheckBox src={mainList[6]} alt='main checkbox2' />
             <LinkButton $imgurl={mainList[3]} $playlist={false} to='/photocard'>포토카드 꾸미기</LinkButton>
           </ButtonContainer>
           <ButtonContainer>
-            <CheckBox src={mainList[6]}></CheckBox>
+            <CheckBox src={mainList[6]} alt='main checkbox3' />
             <LinkButton $imgurl={mainList[4]} $playlist={false} to='/loading'>마이룸</LinkButton>
           </ButtonContainer>
           <ButtonContainer>
-            <CheckBox src={mainList[6]}></CheckBox>
+            <CheckBox src={mainList[6]} alt='main checkbox4' />
             <LinkButton $imgurl={mainList[5]} $playlist={true} to='/playlist'>playlist</LinkButton>
           </ButtonContainer>
         </Background>

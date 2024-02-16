@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import GetImgStorage from '../../api/getImgStorage';
-import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import GetImgStorage from "../../api/getImgStorage";
+import { useQuery } from "@tanstack/react-query";
+import styled, { keyframes } from "styled-components";
+
+const blinkText = keyframes`
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 1;
+  }
+`;
 
 const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
-  background-image: url(${p => p.$imgurl});
+  background-image: url(${(p) => p.$imgurl});
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
@@ -15,29 +27,41 @@ const StatusBackground = styled.form<{ $imgurl: string | undefined }>`
   display: flex;
   justify-content: center;
   z-index: -1;
-`
+`;
 
 const StatusText = styled.input`
   width: 86%;
   font-size: 0.7rem;
   background: transparent;
   border: none;
-  font-family: '소야꼬마9';
+  font-family: "소야꼬마9";
   color: #451821;
   padding-top: 0.2rem;
-`
+`;
+
+const StatusHelp = styled.img`
+  position: absolute;
+  width: calc(197px / 2.3);
+  top: 17%;
+  right: 19%;
+  z-index: -1;
+  animation-name: ${blinkText};
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+`;
 
 export default function StatusBar() {
-  const [status, setStatus] = useState<string>('텍스트를 입력해 보세요.');
+  const [status, setStatus] = useState<string>("텍스트를 입력해 보세요.");
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   const storage = new GetImgStorage();
   const { data: myroomStatus } = useQuery({
-    queryKey: ['myroomStatus'],
+    queryKey: ["myroomStatus"],
     queryFn: async () => {
-      const result = await storage.getImages('myroom/main/status');
+      const result = await storage.getImages("myroom/main/status");
       return result;
     },
-    staleTime: 10000
+    staleTime: 10000,
   });
 
   useEffect(() => {
@@ -47,27 +71,41 @@ export default function StatusBar() {
   }, [myroomStatus]);
 
   const handleStatusFocus = () => {
-    setStatus('');
+    setStatus("");
+    setButtonVisible(false);
   };
 
   const handleStatusChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus((e.target as HTMLButtonElement).value);
-  }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
 
   return (
     <>
-      {myroomStatus &&
-        <StatusBackground $imgurl={myroomStatus[0]}>
-          <StatusText
-            type='text'
-            value={status}
-            onFocus={() => handleStatusFocus()}
-            onChange={(e) => handleStatusChange(e)}
-            maxLength={15}
-          />
-        </StatusBackground>
-      }
+      {myroomStatus && (
+        <div>
+          <StatusBackground $imgurl={myroomStatus[0]}>
+            <StatusText
+              type="text"
+              value={status}
+              onFocus={() => handleStatusFocus()}
+              onChange={(e) => handleStatusChange(e)}
+              onKeyDown={(e) => handleKeyDown(e)}
+              maxLength={15}
+            />
+          </StatusBackground>
+          {buttonVisible ? (
+            <StatusHelp src={myroomStatus[1]} alt="status help" />
+          ) : (
+            ""
+          )}
+        </div>
+      )}
     </>
   );
 }
-

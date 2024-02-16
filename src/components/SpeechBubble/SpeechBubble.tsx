@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import GetImgStorage from '../../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
+
+const blinkText = keyframes`
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 1;
+  }
+`
 
 const BubbleBtn = styled.button`
   width: calc(229px / 2.2);
@@ -20,8 +32,20 @@ const BubbleImg = styled.img`
   height: calc(100% / 1.2);
 `
 
+const BubbleHelp = styled.img`
+  position: absolute;
+  width: calc(197px / 2.3);
+  top: 18%;
+  right: 39.5%;
+  z-index: -1;
+  animation-name: ${blinkText};
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+`
+
 export default function SpeechBubble() {
   const [num, setNum] = useState<number>(0);
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   const storage = new GetImgStorage();
   const { data: myroomBubble } = useQuery({
@@ -42,16 +66,20 @@ export default function SpeechBubble() {
   const handleBubbleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     num < 5 ? setNum((prev) => prev + 1) : setNum(0);
+    setButtonVisible(false);
   };
 
   return (
     <>
       {myroomBubble &&
-        <BubbleBtn
-          onClick={(e) => handleBubbleClick(e)}
-        >
-          <BubbleImg src={myroomBubble[num]}></BubbleImg>
-        </BubbleBtn>
+        <div>
+          {buttonVisible ? <BubbleHelp src={myroomBubble[6]} alt='bubble help' /> : ''}
+          <BubbleBtn
+            onClick={(e) => handleBubbleClick(e)}
+          >
+            <BubbleImg src={myroomBubble[num]}></BubbleImg>
+          </BubbleBtn>
+        </div>
       }
     </>
   );

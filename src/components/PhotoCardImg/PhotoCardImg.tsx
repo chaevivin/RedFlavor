@@ -96,7 +96,7 @@ export default function PhotoCardImg({ saveTargetRef, fabricCanvasRef, backgroun
   const [canvas, setCanvas] = useState<fabric.Canvas | null>();
 
   // 캔버스 초기화
-  useLayoutEffect(() => {
+  useEffect(() => {
     const newCanvas = new fabric.Canvas('canvas', {
       width: 315,
       height: 445.5,

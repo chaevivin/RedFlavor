@@ -44,6 +44,13 @@ function deleteObject(eventData: MouseEvent, transform: fabric.Transform) {
   return true;
 }
 
+const deleteImg = document.createElement('img');
+deleteImg.src = '/img/delete.png';
+
+// function renderIcon(ctx) {
+
+// }
+
 export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPanelProps) {
   const storage = new GetImgStorage();
   const queryResults = useQueries({
@@ -118,6 +125,7 @@ export default function StickerPanel({ currentPage, fabricCanvasRef }: StickerPa
               offsetX: 16,
               cursorStyle: 'pointer',
               mouseUpHandler: deleteObject,
+              // render: renderIcon,
             });
             fabricCanvasRef.current?.add(newImg);
             fabricCanvasRef.current?.renderAll();

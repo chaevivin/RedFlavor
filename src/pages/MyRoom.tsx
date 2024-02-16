@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Character from '../components/Character/Character';
 import SpeechBubble from '../components/SpeechBubble/SpeechBubble';
 import StatusBar from '../components/StatusBar/StatusBar';
@@ -11,7 +11,19 @@ import Back from '../components/Back/Back';
 import { useNavigate } from 'react-router-dom';
 import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const blinkText = keyframes`
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 1;
+  }
+`
 
 const Background = styled.section<{ $imgurl: string | undefined }>`
   height: 100dvh;
@@ -85,10 +97,21 @@ const MenuContainer = styled.div`
   padding-left: 0.7rem;
 `
 
+const MenuHelp = styled.img`
+  position: absolute;
+  width: calc(197px / 2.3);
+  top: 12%;
+  right: 0.7%;
+  animation-name: ${blinkText};
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+`
+
 export default function MyRoom() {
   const modalState = useAppSelector(modalValue);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   const storage = new GetImgStorage();
   const { data: myroomBackground } = useQuery({
@@ -110,6 +133,7 @@ export default function MyRoom() {
   const handleMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(openModal());
+    setButtonVisible(false);
   };
 
   return (
@@ -132,6 +156,7 @@ export default function MyRoom() {
                 <IoMenu color='#46101d' size='1.5rem' />
               </MenuContainer>
             </MenuButton>
+            {buttonVisible ? <MenuHelp src={myroomBackground[3]} alt='menu help' /> : ''}
           </ModalBackground>
           {modalState ? <MyRoomModal /> : ''}
         </Background>
