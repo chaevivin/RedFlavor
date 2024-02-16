@@ -20,7 +20,7 @@ const blinkText = keyframes`
 
 const CharacterContainer = styled.div`
   position: absolute;
-  left: 32.5%;
+  left: 28%;
   top: 36%;
 `
 
