@@ -208,10 +208,10 @@ async preloadImgs(url: string[] | undefined) {
     - `ErrorPage`
 - `Loading`
 - `MyRoom`
-  - `Character` - `Help`
-  - `SpeechBubble` - `Help`
+  - `Character`
+  - `SpeechBubble`
   - `HeartBar`
-  - `StatusBar` - `Help`
+  - `StatusBar`
   - `MyRoomModal` 
 - `PlayList`
   - `Frequency`
