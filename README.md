@@ -166,23 +166,11 @@
 ## 4. 기능 개선
 
 ### 4.1. 이미지 미리 로드
-```ts
-// src/api/getImgStorage.ts
-async preloadImgs(url: string[] | undefined) {
-    await Promise.all(
-      url?.map(
-        (url) =>
-          new Promise((resolve) => {
-            const image = new Image();
-            image.src = url;
-            image.onload = resolve;
-          })
-      ) || []
-    );
-  }
-```
+![이미지 미리 로드](https://github.com/chaevivin/RedFlavor/assets/83055813/b9755486-19f8-42ba-9a1c-831752047e6e)
+
 - 문제점: 이미지 양이 많아 이미지 로딩 시간이 긴 문제점이 있었습니다.
-- 이미지를 비동기적으로 다운받아 이미지 로드 시간을 단축시켜 사용자 경험을 개선하였습니다.
+- 이미지를 비동기적으로 다운받아 이미지 로드 시간을 약 50% 단축시켜 사용자 경험을 개선하였습니다. 
+
 
 <br>
 <br>
