@@ -28,7 +28,7 @@
 
 <div align='center'>
 
-<img width="640" alt="red-flavor diary" src="https://github.com/chaevivin/RedFlavor/assets/83055813/2cd821b1-ca47-4275-b09b-e5d5ee5f1806">
+![red-flavor diary](https://github.com/chaevivin/RedFlavor/assets/83055813/227380d5-3687-4420-aabb-c057d74d0a61)
 
 </div>
 
@@ -36,7 +36,7 @@
 
 - 프론트엔드: React.js / TypeScript / Redux / React-Query / styled-components
 - Database: Firebase Storage / Firestore Database
-- 기타: Fabric.js(Canvas API) / html2canvas(Screenshots) / FileSaver.js(Saving files)
+- 기타: Fabric.js(Canvas Library) / html2canvas(Screenshots) / FileSaver.js(Saving files)
 - 협업: Figma / Notion
 
 <br>
