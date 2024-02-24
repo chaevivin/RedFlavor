@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hook/reduxHook';
 import { selectColorValue } from '../../reducers/changeColorSlice';
 import { selectPanelValue } from '../../reducers/choosePanelSlice';
