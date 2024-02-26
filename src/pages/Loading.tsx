@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import GetImgStorage from '../api/getImgStorage';
 import { useQuery } from '@tanstack/react-query';
@@ -103,16 +103,13 @@ const LoadingContainer = styled.div`
   align-items: center;
   position: absolute;
   top: 62.5%;
-  left: 5%;
 `
 
 const LoadingImg = styled.img`
-  width: calc(100% / 4);
   margin-right: 0.8rem;
 `
 
 const LoadingDot = styled.img<{ $active: any; $second: string }>`
-  width: calc(100% / 38);
   margin-right: 0.5rem;
   ${(p) => p.$active && css`
     animation-name: ${upIcon};
@@ -123,19 +120,18 @@ const LoadingDot = styled.img<{ $active: any; $second: string }>`
 `
 
 export default function Loading() {
-  const storage = new GetImgStorage();
-  const { data: loading } = useQuery({
-    queryKey: ['loading'],
-    queryFn: async () => {
-      const result = await storage.getImages('loading');
-      return result;
-    },
-    staleTime: 1000 * 60 * 60,
-    gcTime: 1000 * 60 * 60,
-  });
+  const [loading, setLoading] = useState<string[]>([]);
+  const getLoadingImgs = (name: string) => {
+    const imgsrc = `https://red-flavor-diary.imgix.net/loading/loading_${name}.png?w=0.28&q=100`;
+    if (!loading.includes(imgsrc)) {
+      setLoading((prev) => [...prev, imgsrc]);
+    }
+    return imgsrc;
+  };
 
+  const storage = new GetImgStorage();
   useEffect(() => {
-    if (loading) {
+    if (loading.length > 0) {
       storage.preloadImgs(loading);
     }
   }, [loading]);
@@ -154,17 +150,17 @@ export default function Loading() {
     <>
       {loading &&
         <Background>
-          <WaterMelonIcon src={loading[2]} $active />
-          <PineappleIcon src={loading[3]} $active />
-          <OrangeIcon src={loading[4]} $active />
-          <KiwiIcon src={loading[5]} $active />
-          <GrapeIcon src={loading[6]} $active />
-          <BookIcon src={loading[0]} />
+          <WaterMelonIcon src={getLoadingImgs('icon1')} $active />
+          <PineappleIcon src={getLoadingImgs('icon2')} $active />
+          <OrangeIcon src={getLoadingImgs('icon3')} $active />
+          <KiwiIcon src={getLoadingImgs('icon4')} $active />
+          <GrapeIcon src={getLoadingImgs('icon5')} $active />
+          <BookIcon src={getLoadingImgs('diary')} />
           <LoadingContainer>
-            <LoadingImg src={loading[7]} />
-            <LoadingDot src={loading[1]} $active $second={'1.5s'} />
-            <LoadingDot src={loading[1]} $active $second={'2.5s'} />
-            <LoadingDot src={loading[1]} $active $second={'3.5s'} />
+            <LoadingImg src={getLoadingImgs('text')} />
+            <LoadingDot src={getLoadingImgs('dot')} $active $second={'1.5s'} />
+            <LoadingDot src={getLoadingImgs('dot')} $active $second={'2.5s'} />
+            <LoadingDot src={getLoadingImgs('dot')} $active $second={'3.5s'} />
           </LoadingContainer>
         </Background>
       }
